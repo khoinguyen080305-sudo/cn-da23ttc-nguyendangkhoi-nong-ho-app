@@ -1,313 +1,206 @@
-# ĐỒ ÁN CHUYÊN NGÀNH CÔNG NGHỆ THÔNG TIN
+# ĐỒ ÁN CHUYÊN NGÀNH: XÂY DỰNG ỨNG DỤNG HỖ TRỢ NÔNG HỘ TIẾP CẬN THỊ TRƯỜNG VÀ TIÊU THỤ SẢN PHẨM
 
-## THÔNG TIN ĐỒ ÁN
+## 1. THÔNG TIN ĐỒ ÁN
 
-- **Tên đề tài:** XÂY DỰNG ỨNG DỤNG HỖ TRỢ NÔNG HỘ TIẾP CẬN THỊ TRƯỜNG VÀ TIÊU THỤ SẢN PHẨM
+- **Tên đề tài:** Xây dựng ứng dụng hỗ trợ nông hộ tiếp cận thị trường và tiêu thụ sản phẩm
 - **Sinh viên thực hiện:** Nguyễn Đăng Khôi
-- **Mssv:** 110123117
+- **Mã số sinh viên (MSSV):** 110123117
 - **Lớp:** DA23TTC
-- **Mục tiêu cốt lõi:** Cho phép nông hộ cập nhật tình trạng sản phẩm (đang trồng, sắp thu hoạch, còn hàng, hết hàng) và ngày dự kiến thu hoạch để người mua tìm nguồn hàng sớm. Xây dựng chức năng cơ hội thị trường: người mua đăng nhu cầu cần mua, hệ thống gợi ý nông hộ phù hợp theo quy tắc chấm điểm. Xây dựng công cụ số giúp nông hộ tiếp cận thị trường, giới thiệu sản phẩm và kết nối với người mua/ đối tác. Hỗ trợ quảng bá và tiêu thụ sản phẩm nông nghiệp hiệu quả hơn thông qua nền tảng trực tuyến. Xây dựng hệ thống quản lý hồ sơ nông hộ, sản phẩm, sản lượng, giá bán và đơn hàng có cơ sở dữ liệu và chức năng hoạt động thực tế.
+- **Công nghệ sử dụng:** PHP (Mô hình MVC), MySQL, HTML5, CSS3, JavaScript (Bootstrap 5).
 
-## 1. GIỚI THIỆU TỔNG QUAN VÀ ĐIỂM NỔI BẬT
+---
 
-Đồ án giải quyết vấn đề trăn trở lớn nhất của người nông dân Việt Nam: "Được mùa nhưng sản lượng bị ép giá, thiếu kênh tiêu thụ sản phẩm, quảng bá và khó tiếp cận thị trường". Hệ thống được thiết kế thực tiễn, tinh gọn, không nhồi nhét công nghệ phức tạp mà tập trung sâu vào nghiệp vụ thực tế:
+## 2. CÁC TÍNH NĂNG CHÍNH
 
-- Bộ Lọc Đa Năng: Tích hợp tìm kiếm từ khóa, lọc theo tỉnh thành hoạt động, lọc theo tình trạng mùa vụ và nút tìm kiếm, tối giản thao tác cho người dùng.
-- Theo Dõi Mùa Vụ và Hiển Thị Ngày Thu Hoạch Dự Kiến: Quản lý 4 trạng thái mùa vụ (dang_trong, sap_thu_hoach, con_hang, het_hang). Đặc biệt, với nông sản "Sắp thu hoạch", hệ thống hiển thị trực quan ngày dự kiến thu hoạch (d/m/Y) trên cả thẻ nông sản và trang chi tiết giúp người mua chủ động đặt trước kỳ thu hoạch.
-- Tách Bạch Đơn Vị Sản Lượng Kho và Đơn Vị Tính Giá: Kho hàng lưu trữ khối lượng thực tế (3.5 Tấn, 5.000 Trái, 800 Bó), trong khi giá bán niêm yết có thể linh hoạt theo kg, trái, bó kèm cơ chế quy đổi đơn vị đo lường chuẩn.
-- Bộ Lọc Tỉnh Thành Động: Dropdown lọc tỉnh chỉ hiển thị những tỉnh hiện có nông hộ đang bán hàng hoạt động, loại bỏ hoàn toàn tình trạng tìm kiếm trả về kết quả rỗng.
-- Thuật Toán Ghép Nối Cung - Cầu Đa Tiêu Chí (Smart Matching %): Tự động so khớp 5 tiêu chí (Tên loại nông sản cụ thể + Ngành hàng, Khả năng cung ứng kho có quy đổi đơn vị, Mức giá, Lợi thế địa lý cùng tỉnh thành, và Tính sẵn sàng/kịp mùa vụ thu hoạch) để gợi ý cho nông hộ các cơ hội thu mua tiềm năng nhất.
-- Quy Trình Thương Lượng Đơn Hàng 3 Bước Thực Tế: Người mua đề xuất giá Nông hộ báo giá lại hoặc Chấp nhận Khi xác nhận mới tự động trừ tồn kho Hoàn thành để tính điểm uy tín cho nông hộ trên sản phẩm đó.
-- Quy Trình Quên Mật Khẩu An Toàn và Cấp Mật Khẩu Tạm: Không phụ thuộc SMTP máy chủ gửi mail dễ lỗi. Admin cấp mật khẩu tạm ngẫu nhiên, hệ thống kích hoạt gán cờ cho trạng thái đổi mật khẩu bằng 1 ép buộc người dùng phải đổi mật khẩu mới ngay khi đăng nhập.
-- Quản Lý Tệp Ảnh: Khi nông hộ cập nhật ảnh sản phẩm mới hoặc xóa sản phẩm, hệ thống tự động xóa tệp ảnh cũ vật lý khỏi thư mục lưu trữ, chống phình to dung lượng máy chủ.
+- **Sàn nông sản và bộ lọc:** Tìm kiếm theo từ khóa, lọc theo danh mục ngành hàng, lọc theo tình trạng mùa vụ và bộ lọc tỉnh thành động (chỉ hiện các tỉnh hiện có hàng đang bán).
+- **Theo dõi mùa vụ và ngày thu hoạch:** Quản lý 4 trạng thái (Đang canh tác, Sắp thu hoạch, Còn hàng, Tạm hết hàng). Riêng trạng thái "Sắp thu hoạch" có hiển thị ngày dự kiến thu hoạch (d/m/Y) để người mua đặt trước.
+- **Tách biệt đơn vị kho và đơn vị giá:** Quản lý sản lượng kho (tấn, tạ, kg, bó, trái...) độc lập với đơn vị định giá bán (đ/kg, đ/trái, đ/bó...) và tự động quy đổi khi trừ kho.
+- **Quy trình đặt hàng và thương lượng giá:** Người mua thêm vào giỏ, nhập số lượng và đề xuất giá mua -> Nông hộ tiếp nhận, có thể Xác nhận đơn (tự động trừ kho), Báo giá lại hoặc Hủy đơn -> Hoàn thành giao dịch.
+- **Gợi ý ghép nối cung cầu (Smart Matching %):** Tự động so khớp tin cần mua của người mua với kho hàng của nông hộ theo 5 tiêu chí: danh mục, sản lượng đáp ứng, mức giá, địa bàn cùng tỉnh thành và thời gian thu hoạch.
+- **Quản trị hệ thống:** Duyệt hồ sơ nông hộ, khóa/mở tài khoản, quản lý danh mục và cấp mật khẩu tạm kèm cơ chế bắt buộc đổi mật khẩu mới ngay khi đăng nhập.
 
-## 2. PHÂN QUYỀN VAI TRÒ
+---
 
-Hệ thống phân định rành mạch 3 vai trò thành viên cùng 1 trạng thái khách vãng lai:
-Chi tiết quyền hạn:
+## 3. HƯỚNG DẪN CÀI ĐẶT
 
-1. Khách vãng lai: Xem nông sản, tra cứu theo danh mục và tỉnh thành. Số điện thoại của nhà vườn bị che một phần (0912.xxx.xxx) để bảo mật thông tin.
-2. Người mua: Vai trò duy nhất có biểu tượng Giỏ hàng trên Header và nút Thêm vào giỏ; có thể đề xuất giá mong muốn cho từng nông hộ, gửi đơn hàng và đăng tin nhu cầu thu mua.
-3. Nông hộ: Đăng ký tài khoản cần Admin xét duyệt. Sau khi duyệt có toàn quyền đăng bán nông sản, tiếp nhận đơn đặt, báo giá lại, xác nhận giao dịch và sử dụng bảng Smart Matching để tìm người mua.
-4. Quản trị viên: Quản lý duyệt/từ chối nông hộ, khóa tài khoản vi phạm, cấp mật khẩu tạm cho người dùng quên mật khẩu, quản lý danh mục sản phẩm.
+### Yêu cầu hệ thống:
 
-## 3. KIẾN TRÚC KỸ THUẬT & CẤU TRÚC MÃ NGUỒN
+- Phần mềm XAMPP (hỗ trợ PHP từ 7.4 trở lên và MySQL / MariaDB).
+- Trình duyệt web (Chrome, Edge, Firefox, Cốc Cốc).
 
-Dự án áp dụng mô hình MVC (Model - View - Controller)
+### Các bước cài đặt chi tiết:
 
-### Sơ đồ thư mục dự án:
+#### Bước 1: Đặt mã nguồn vào thư mục XAMPP
 
-nongho-app/
-├── index.php # Bộ định tuyến trung tâm (Router MVC tập trung ?trang=...)
-├── config.php # Kết nối MySQL, Session, Hằng số & Hàm tiện ích chung (tiếng Việt)
-├── phan_tich_du_an.md # Tài liệu phân tích yêu cầu & thiết kế nghiệp vụ
-├── thiet_ke_giao_dien_ux_ui.md # Tài liệu thiết kế Design System & Giao diện UX/UI
-├── bang_test_case.md # Bảng test case toàn diện 10 modules kiểm thử đồ án
-├── README.md # Tài liệu đồ án, sơ đồ ERD, hướng dẫn vận hành & nhật ký cập nhật
-│
-├── database/
-│ └── nong_ho_db.sql # Kịch bản tạo CSDL & dữ liệu mẫu hoàn chỉnh 6 bảng
-│
-├── models/
-│ ├── NguoiDung.php # Xử lý tài khoản, phân quyền, đổi MK tạm, lọc tỉnh động
-│ ├── DanhMuc.php # Quản lý danh mục ngành hàng nông sản
-│ ├── SanPham.php # CRUD nông sản, trừ kho, phân tách đơn vị sản lượng & giá, dọn rác ảnh
-│ ├── DonHang.php # Giỏ hàng Session, quy trình đơn hàng 3 bước, trừ kho quy đổi, thông báo
-│ └── NhuCau.php # Đăng tin nhu cầu, thuật toán Smart Matching % đa tiêu chí
-│
-├── controllers/
-│ ├── CongKhaiController.php # Sàn nông sản, chi tiết, đăng ký, đăng nhập, đổi MK tạm
-│ ├── NguoiMuaController.php # Giỏ hàng, tạo đơn, quản lý nhu cầu, hồ sơ người mua
-│ ├── NongHoController.php # Quản lý nông sản, xem nhu cầu thị trường & Matching %
-│ ├── DonHangController.php # Xác nhận đơn, báo giá lại, hủy đơn, hoàn thành đơn
-│ └── AdminController.php # Phê duyệt nông hộ, cấp MK tạm, quản lý danh mục
-│
-├── views/
-│ ├── layouts/
-│ │ ├── header.php # Thanh điều hướng có logo SVG, đếm giỏ hàng, menu phân quyền
-│ │ └── footer.php # Chân trang tinh gọn 1 dòng, hotline pill & container Toast nội bộ
-│ ├── public/
-│ │ ├── trang_chu.php # Sàn nông sản, bộ lọc hợp nhất .nh-unified-bar & chip danh mục đếm số lượng
-│ │ └── chi_tiet.php # Chi tiết sản phẩm, chứng nhận, nhãn ngày thu hoạch & thông tin nhà vườn
-│ ├── auth/
-│ │ ├── dang_nhap.php # Form đăng nhập & hotline hỗ trợ quên mật khẩu
-│ │ ├── dang_ky.php # Đăng ký tài khoản (hỗ trợ auto lowercase UX & đo độ mạnh mật khẩu)
-│ │ └── doi_mk_tam.php # Màn hình cưỡng chế đổi mật khẩu mới khi dùng MK tạm
-│ ├── nguoi_mua/
-│ │ ├── gio_hang.php # Giỏ hàng, chỉnh sửa số lượng & mức giá đề xuất
-│ │ ├── nhu_cau_cua_toi.php # Quản lý các tin nhu cầu cần mua
-│ │ └── ho_so.php # Cập nhật hồ sơ cá nhân người mua
-│ ├── nong_ho/
-│ │ ├── san_pham.php # Danh sách nông sản của nông hộ (ẩn/hiện, sửa, xóa)
-│ │ ├── form_san_pham.php # Form thêm/sửa sản phẩm (chọn đơn vị sản lượng & giá tách biệt)
-│ │ ├── nhu_cau_thi_truong.php # Giao diện ghép nối Smart Matching %
-│ │ └── ho_so.php # Cập nhật thông tin vườn, số điện thoại, tỉnh thành
-│ ├── don_hang/
-│ │ └── danh_sach.php # Bảng theo dõi 3 tab: Đang xử lý, Đã xác nhận, Lịch sử
-│ └── admin/
-│ └── tong_quan.php # Bảng điều khiển quản trị tinh gọn (Duyệt nông hộ, Quản lý tài khoản & Cấp MK, Danh mục)
-│
-└── assets/
-├── css/
-│ └── style.css # Design tokens, màu xanh nông nghiệp, lưới compact, toast & modal
-├── js/
-│ └── app.js # Xử lý tương tác trang, tăng giảm giỏ hàng, toast & modal tự xây dựng
-└── images/
-├── logo.svg # Logo vector thương hiệu Nông Hộ chính thức
-├── logo_icon.svg # Biểu tượng icon mầm lá mặt trời rút gọn
-├── hero_basket.png # Hình ảnh giỏ nông sản tươi minh họa Hero Banner
-├── nong_san_mac_dinh.svg # Ảnh vector fallback khi sản phẩm chưa có ảnh
-└── products/ # Thư mục lưu ảnh nông sản được tải lên thực tế
+Sao chép toàn bộ thư mục `nongho-app` vào thư mục `htdocs` của XAMPP:
 
-## 4. THIẾT KẾ CƠ SỞ DỮ LIỆU & SƠ ĐỒ ERD (DATABASE SCHEMA & ERD)
+- Nếu cài XAMPP ở ổ C: `C:\xampp\htdocs\nongho-app`
+- Nếu cài XAMPP ở ổ D: `D:\xampp\htdocs\nongho-app`
 
-### 4.1. Sơ Đồ Thực Thể Mối Quan Hệ
-
-![1792479032637](image/README/1792479032637.png)
-
-### 4.2. Bảng Ràng Buộc Khóa Ngoại & Hành Vi Xóa
-
-| Bảng Chứa Khóa Ngoại | Cột Khóa Ngoại  | Bảng Tham Chiếu | Cột Tham Chiếu  | Hành Vi Khi Xóa (ON DELETE) | Ý Nghĩa Thực Tiễn Nghiệp Vụ                                                                             |
-| :------------------- | :-------------- | :-------------- | :-------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------ |
-| `san_pham`           | `ma_nong_ho`    | `nguoi_dung`    | `ma_nguoi_dung` | `CASCADE`                   | Xóa tài khoản nông hộ sẽ dọn dẹp các sản phẩm thuộc nông hộ đó.                                         |
-| `san_pham`           | `ma_danh_muc`   | `danh_muc`      | `ma_danh_muc`   | `RESTRICT`                  | Không cho phép xóa danh mục khi vẫn còn sản phẩm đang thuộc danh mục đó.                                |
-| `don_hang`           | `ma_nguoi_mua`  | `nguoi_dung`    | `ma_nguoi_dung` | `CASCADE`                   | Xóa tài khoản người mua sẽ dọn dẹp đơn hàng liên quan.                                                  |
-| `don_hang`           | `ma_san_pham`   | `san_pham`      | `ma_san_pham`   | `RESTRICT`                  | Bảo vệ tính toàn vẹn: Không thể xóa cứng sản phẩm nếu đã có đơn hàng (dùng cơ chế ẩn xóa mềm `an = 1`). |
-| `nhu_cau`            | `ma_nguoi_mua`  | `nguoi_dung`    | `ma_nguoi_dung` | `CASCADE`                   | Xóa tài khoản người mua sẽ dọn dẹp tin nhu cầu của họ.                                                  |
-| `nhu_cau`            | `ma_danh_muc`   | `danh_muc`      | `ma_danh_muc`   | `RESTRICT`                  | Không cho phép xóa danh mục khi có nhu cầu thu mua đang tham chiếu.                                     |
-| `thong_bao`          | `ma_nguoi_nhan` | `nguoi_dung`    | `ma_nguoi_dung` | `CASCADE`                   | Xóa người dùng sẽ dọn dẹp toàn bộ thông báo của người đó.                                               |
-
-### 4.3. Từ Điển Dữ Liệu Chi Tiết
-
-#### 1. Bảng `nguoi_dung` (Tài khoản, Hồ sơ Nông hộ & Phân quyền)
-
-- **Khóa chính:** `ma_nguoi_dung` (`INT AUTO_INCREMENT`)
-- **Khóa duy nhất (Unique):** `tai_khoan` (`VARCHAR(50) NOT NULL UNIQUE`) - chuẩn hóa chữ thường không dấu (`a-z0-9_`).
-- **Các trường dữ liệu:**
-  - `mat_khau` (`VARCHAR(255) NOT NULL`): Chuỗi băm Bcrypt 60 ký tự.
-  - `ho_ten` (`VARCHAR(100) NOT NULL`): Tên người mua hoặc Tên nhà vườn / Hợp tác xã.
-  - `sdt` (`VARCHAR(15) NOT NULL`): Số điện thoại liên lạc (che với khách vãng lai, hiển thị cho thành viên).
-  - `vai_tro` (`ENUM('nguoi_mua', 'nong_ho', 'admin') NOT NULL`): Định danh vai trò trong hệ thống.
-  - `trang_thai` (`ENUM('cho_duyet', 'da_duyet', 'khoa') NOT NULL DEFAULT 'cho_duyet'`): Trạng thái hoạt động tài khoản.
-  - `phai_doi_mk` (`TINYINT(1) NOT NULL DEFAULT 0`): Cờ ép buộc đổi mật khẩu khi đăng nhập bằng MK tạm do Admin cấp.
-  - `tinh` (`VARCHAR(50) NULL`): Tỉnh thành nông hộ đặt vườn (dùng để trích xuất `DISTINCT tinh` tạo bộ lọc động).
-  - `dia_chi` (`VARCHAR(255) NULL`): Địa chỉ chi tiết (Ấp, Xã, Huyện) để giao nhận nông sản.
-  - `ngay_tao` (`TIMESTAMP DEFAULT CURRENT_TIMESTAMP`): Thời điểm đăng ký.
-
-#### 2. Bảng `danh_muc` (Ngành hàng nông sản)
-
-- **Khóa chính:** `ma_danh_muc` (`INT AUTO_INCREMENT`)
-- **Khóa duy nhất (Unique):** `ten_danh_muc` (`VARCHAR(100) NOT NULL UNIQUE`)
-- **Dữ liệu mẫu:** `Trái cây`, `Rau củ sạch`, `Lúa gạo`, `Nông sản khác`.
-
-#### 3. Bảng `san_pham` (Nông sản đăng bán)
-
-- **Khóa chính:** `ma_san_pham` (`INT AUTO_INCREMENT`)
-- **Khóa ngoại:** `ma_nong_ho` (`INT NOT NULL`), `ma_danh_muc` (`INT NOT NULL`)
-- **Các trường dữ liệu:**
-  - `ten` (`VARCHAR(150) NOT NULL`): Tên mặt hàng (Vd: _Bưởi Da Xanh Ruột Đỏ_, _Dừa Xiêm Xanh_).
-  - `san_luong` (`DECIMAL(10,2) NOT NULL DEFAULT 0`): Sản lượng kho thực tế sẵn có. Tự động trừ kho khi đơn sang `da_xac_nhan`.
-  - `don_vi_san_luong` (`VARCHAR(20) NOT NULL DEFAULT 'kg'`): Đơn vị đo khối lượng kho (`tấn`, `tạ`, `kg`, `bó`, `trái`, `thùng`, `bao`).
-  - `gia` (`DECIMAL(12,2) NULL`): Đơn giá niêm yết bán buôn/lẻ. `NULL` mang ý nghĩa _"Liên hệ báo giá"_.
-  - `don_vi_gia` (`VARCHAR(20) NOT NULL DEFAULT 'kg'`): Đơn vị định giá chào bán (`kg`, `trái`, `bó`, `thùng`...).
-  - `anh` (`VARCHAR(255) NULL`): Tên tệp ảnh đại diện nông sản trong thư mục `assets/images/products/`.
-  - `tinh_trang` (`ENUM('dang_trong', 'sap_thu_hoach', 'con_hang', 'het_hang') NOT NULL DEFAULT 'con_hang'`): Tình trạng mùa vụ canh tác.
-  - `ngay_thu_hoach` (`DATE NULL`): Ngày dự kiến thu hoạch (hiển thị `d/m/Y` khi tình trạng là `sap_thu_hoach`).
-  - `chung_nhan` (`SET('vietgap', 'globalgap', 'huu_co', 'ocop') NULL`): Tiêu chuẩn chất lượng nông sản đã được chứng nhận.
-  - `an` (`TINYINT(1) NOT NULL DEFAULT 0`): `0` = Đang hiển thị trên sàn; `1` = Ẩn (xóa mềm để bảo toàn lịch sử đơn hàng cũ).
-  - `ngay_tao` (`TIMESTAMP DEFAULT CURRENT_TIMESTAMP`): Ngày đăng nông sản.
-
-#### 4. Bảng `don_hang` (Đơn đặt mua & Thương lượng giá)
-
-- **Khóa chính:** `ma_don_hang` (`INT AUTO_INCREMENT`)
-- **Khóa ngoại:** `ma_nguoi_mua` (`INT NOT NULL`), `ma_san_pham` (`INT NOT NULL`)
-- **Các trường dữ liệu:**
-  - `so_luong` (`DECIMAL(10,2) NOT NULL`): Số lượng người mua muốn đặt.
-  - `don_vi` (`VARCHAR(20) NOT NULL DEFAULT 'kg'`): Đơn vị tính khối lượng đặt hàng.
-  - `gia` (`DECIMAL(12,2) NOT NULL`): **Cột giá thương lượng duy nhất**: Ở `moi` là giá người mua đề nghị; ở `da_bao_gia` là giá nông hộ báo lại; ở `da_xac_nhan` là giá chốt chính thức.
-  - `don_vi_gia` (`VARCHAR(20) NOT NULL DEFAULT 'kg'`): Đơn vị định giá tương ứng.
-  - `trang_thai` (`ENUM('moi', 'da_bao_gia', 'da_xac_nhan', 'hoan_thanh', 'da_huy') NOT NULL DEFAULT 'moi'`): Trạng thái tiến độ đơn.
-  - `ghi_chu` (`VARCHAR(255) NULL`): Yêu cầu đóng gói, giao nhận hoặc lưu ý từ người mua.
-  - `ngay_tao` (`TIMESTAMP DEFAULT CURRENT_TIMESTAMP`): Thời điểm gửi đơn.
-
-#### 5. Bảng `nhu_cau` (Nhu cầu thị trường cần thu mua)
-
-- **Khóa chính:** `ma_nhu_cau` (`INT AUTO_INCREMENT`)
-- **Khóa ngoại:** `ma_nguoi_mua` (`INT NOT NULL`), `ma_danh_muc` (`INT NOT NULL`)
-- **Các trường dữ liệu:**
-  - `so_luong` (`DECIMAL(10,2) NOT NULL`): Khối lượng cần thu mua sỉ.
-  - `don_vi` (`VARCHAR(20) NOT NULL DEFAULT 'kg'`): Đơn vị tính (`tấn`, `tạ`, `kg`...).
-  - `gia_toi_da` (`DECIMAL(12,2) NULL`): Mức giá trần người mua có thể thanh toán (phục vụ chấm điểm Smart Matching %).
-  - `tinh` (`VARCHAR(50) NOT NULL`): Tỉnh thành nhận hàng (ưu tiên ghép nối nông hộ cùng địa phương).
-  - `han_can` (`DATE NOT NULL`): Ngày kết thúc cần nguồn hàng (so khớp với ngày dự kiến thu hoạch).
-  - `ngay_tao` (`TIMESTAMP DEFAULT CURRENT_TIMESTAMP`): Thời điểm đăng tin nhu cầu.
-
-#### 6. Bảng `thong_bao` (Hệ thống Thông báo nội bộ)
-
-- **Khóa chính:** `ma_thong_bao` (`INT AUTO_INCREMENT`)
-- **Khóa ngoại:** `ma_nguoi_nhan` (`INT NOT NULL`)
-- **Các trường dữ liệu:**
-  - `noi_dung` (`VARCHAR(255) NOT NULL`): Thông điệp thông báo biến động đơn hàng hoặc hồ sơ tài khoản.
-  - `da_doc` (`TINYINT(1) NOT NULL DEFAULT 0`): `0` = Chưa đọc (hiện chấm đỏ trên chuông header); `1` = Đã đọc.
-  - `ngay_tao` (`TIMESTAMP DEFAULT CURRENT_TIMESTAMP`): Thời điểm phát sinh thông báo.
-
-## 5. HƯỚNG DẪN CÀI ĐẶT & TRIỂN KHAI
-
-### 5.1. Yêu cầu môi trường
-
-- Máy tính đã cài đặt **XAMPP** (hoặc WampServer, Laragon) hỗ trợ **PHP $\ge$ 7.4 hoặc 8.x**.
-- Trình quản lý cơ sở dữ liệu **MySQL**
-- Trình duyệt web (Google Chrome, Microsoft Edge, Firefox).
-
-### 5.2. Các bước cài đặt chi tiết
-
-#### Bước 1: Sao chép mã nguồn vào thư mục XAMPP
-
-Sao chép toàn bộ thư mục dự án `nongho-app` vào thư mục web của XAMPP:
-
-```
-C:\xampp\htdocs\nongho-app
-```
-
-_(Nếu cài XAMPP ở ổ đĩa `D:\`, đường dẫn sẽ là `D:\xampp\htdocs\nongho-app`)_.
-
-#### Bước 2: Khởi động máy chủ Web & Database
+#### Bước 2: Khởi động máy chủ
 
 1. Mở ứng dụng **XAMPP Control Panel**.
-2. Nhấn nút **Start** ở cả 2 dịch vụ: **Apache** và **MySQL** (hiển thị trạng thái màu xanh lá cây là được).
+2. Nhấn nút **Start** tại dòng **Apache**.
+3. Nhấn nút **Start** tại dòng **MySQL**.
+   *(Đảm bảo cả 2 dịch vụ đều chuyển sang màu xanh lá cây).*
 
-#### Bước 3: Nhập Cơ sở Dữ liệu (Import Database)
+#### Bước 3: Tạo cơ sở dữ liệu và nạp dữ liệu mẫu
 
-1. Mở trình duyệt web và truy cập vào trang: `http://localhost/phpmyadmin`
-2. Nhấn vào thẻ **Databases (Cơ sở dữ liệu)**, tạo mới một CSDL với:
-   - Tên database: `nong_ho_db`
-   - Bảng mã (Collation): chọn `utf8mb4_unicode_ci` $\rightarrow$ Nhấn **Create (Tạo)**.
-3. Chọn database `nong_ho_db` vừa tạo bên cột trái, nhấn vào thẻ **Import (Nhập)** ở thanh trên cùng.
-4. Bấm **Choose File (Chọn tệp)** và dẫn đến tệp nong_ho_db.sql trong dự án:
-   ```
-   C:\xampp\htdocs\nongho-app\database\nong_ho_db.sql
-   Nếu thư mục dự án lưu trong XAMPP ở ổ D: thì vào ổ D: tìm.
-   ```
-5. Cuộn xuống cuối trang và bấm nút **Import (Nhập)**. Hệ thống sẽ tạo đủ 6 bảng và nạp sẵn dữ liệu mẫu thử nghiệm hoàn chỉnh.
+1. Mở trình duyệt web, truy cập: `http://localhost/phpmyadmin/`
+2. Nhấn vào mục **Databases** (Cơ sở dữ liệu) để tạo mới:
+   - Tên cơ sở dữ liệu: `nong_ho_db`
+   - Bảng mã (Collation): chọn `utf8mb4_unicode_ci`
+   - Nhấn **Create** (Tạo).
+3. Nhấp chọn cơ sở dữ liệu `nong_ho_db` vừa tạo ở cột bên trái.
+4. Nhấn vào thẻ **Import** (Nhập) ở thanh menu phía trên.
+5. Tại mục chọn tệp, nhấn **Choose File** (hoặc Chọn tệp) và tìm đến file:
+   `nongho-app/database/nong_ho_db.sql`
+6. Cuộn xuống cuối trang và nhấn nút **Import** (Nhập).
 
-#### Bước 4: Kiểm tra cấu hình kết nối
+#### Bước 4: Kiểm tra tệp kết nối cơ sở dữ liệu
 
-Mở tệp [config.php](file:///d:/xampp/htdocs/nongho-app/config.php), mặc định kết nối XAMPP chuẩn là:
+Mở tệp `config.php` trong thư mục dự án và kiểm tra các thông số kết nối mặc định:
 
 ```php
 $may_chu   = "localhost";
 $tai_khoan = "root";
-$mat_khau  = "";          // XAMPP mặc định mật khẩu rỗng
+$mat_khau  = "";          // XAMPP mặc định để trống
 $csdl      = "nong_ho_db";
 ```
 
-_Nếu bạn dùng mật khẩu MySQL khác, hãy chỉnh sửa biến `$mat_khau` cho tương ứng._
+*(Nếu MySQL của bạn có đặt mật khẩu riêng, hãy điền vào biến `$mat_khau`).*
 
-#### Bước 5: Truy cập hệ thống
+#### Bước 5: Truy cập ứng dụng
 
-Mở trình duyệt và truy cập vào địa chỉ:
+Mở trình duyệt và truy cập theo đường dẫn:
 
-```Markdown
+```text
 http://localhost/nongho-app/
 ```
 
 ---
 
-## 6. TÀI KHOẢN THỬ NGHIỆM SẴN CÓ
+## 4. BẢNG TÀI KHOẢN THỬ NGHIỆM
 
-Dữ liệu mẫu trong tệp [nong_ho_db.sql](file:///d:/xampp/htdocs/nongho-app/database/nong_ho_db.sql) đã được thiết lập sẵn đầy đủ
+Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
+*(Quy ước: Tên tài khoản luôn viết thường không dấu).*
 
-> 🔑 **MẬT KHẨU CHUNG CHO TẤT CẢ CÁC TÀI KHOẢN MẪU:** `110123117@`
-> _(Quy ước chung để tránh nông hộ không rành viết dấu đặt tên nhiều kiểu khác nhau: Tên tài khoản luôn viết thường không dấu)._
-
----
-
-## 7. KỊCH BẢN CÓ THỂ KIỂM THỬ
-
-#### 1. Trải nghiệm Sàn nông sản & Bộ lọc Tỉnh Động:
-
-1. Truy cập `http://localhost/nongho-app/` khi chưa đăng nhập.
-2. Thử lọc theo danh mục: Bấm chip **Trái cây** hoặc **Rau củ sạch**.
-3. Bấm vào dropdown **Tất cả tỉnh thành**: Nhận thấy danh sách chỉ hiện các tỉnh thực tế có nông hộ (`Vĩnh Long`, `Tiền Giang`), chứng minh cơ chế lọc động hoạt động chuẩn xác.
-4. Bấm vào xem chi tiết một sản phẩm: Số điện thoại của nhà vườn hiển thị dạng che `0912.xxx.xxx`. Bấm nút "Mua hàng" sẽ nhận được Toast thông báo lịch sự yêu cầu đăng nhập.
-
-#### 2. Trải nghiệm Luồng Giỏ Hàng & Thương lượng giá (Người Mua $\rightarrow$ Nông Hộ):
-
-1. Đăng nhập bằng tài khoản người mua: `phuocloc` / `110123117@`.
-2. Biểu tượng **Giỏ Hàng** xuất hiện trên thanh Header.
-3. Chọn sản phẩm **"Bưởi Da Xanh Ruột Đỏ"** $\rightarrow$ Bấm **Thêm vào giỏ**.
-4. Vào trang Giỏ hàng: Đổi số lượng thành `200` kg, nhập mức giá đề xuất `42000` đ/kg và ghi chú $\rightarrow$ Bấm **Gửi Đơn Yêu Cầu Thu Mua**.
-5. Đăng xuất và đăng nhập tài khoản nông hộ: `dangkhoi` / `110123117@`.
-6. Chuông thông báo góc phải sáng đèn. Vào menu **Đơn đặt hàng**: Đơn hàng mới nằm ở Tab **Đang xử lý**.
-7. Nông hộ bấm nút **Xác nhận**: Đơn chuyển sang Tab **Đã xác nhận**, đồng thời sản lượng kho của Bưởi Da Xanh tự động giảm đi đúng 200 kg.
-8. Bấm **Hoàn thành giao dịch** khi giao hàng xong: Đơn chuyển sang Tab **Lịch sử**, tăng số đơn uy tín cho nhà vườn.
-
-#### 3. Trải nghiệm Thuật toán Gợi ý Ghép Nối (Smart Matching %):
-
-1. Đăng nhập tài khoản nông hộ `dangkhoi` $\rightarrow$ Truy cập menu **"Nhu cầu thị trường"** (`?trang=nong_ho_nhu_cau`).
-2. Xem thẻ nhu cầu thu mua của cửa hàng Phước Lộc (Cần mua 1.5 tấn trái cây tại Vĩnh Long).
-3. Hệ thống hiển thị huy hiệu **Phù hợp 90%** (do khớp ngành Trái cây, đủ sản lượng kho 3.5 tấn $\ge$ 1.5 tấn, cùng địa bàn Vĩnh Long). Nông hộ có thể bấm xem chi tiết số điện thoại của người mua để xúc tiến hợp đồng.
-
-#### 4. Trải nghiệm Quản trị & Cấp mật khẩu tạm:
-
-1. Đăng nhập tài khoản quản trị: `admin` / `110123117@`.
-2. Kiểm tra mục **Nông hộ chờ duyệt**: Hồ sơ của `minhnhut` (Tiền Giang) hiển thị tại đây kèm Action Pill `[Duyệt hồ sơ]`.
-3. Kiểm tra mục **Quản lý tài khoản**: Thử nghiệm bấm nút **Cấp mật khẩu tạm** cho một tài khoản. Hệ thống sinh mật khẩu ngẫu nhiên trên màn hình.
-4. Đăng nhập tài khoản `thuyvy` / `110123117@` (tài khoản mẫu đang có cờ `phai_doi_mk = 1`):
-   - Ngay lập tức người dùng bị điều hướng đến màn hình `index.php?trang=doi_mk_tam`.
-   - Nếu cố ý gõ URL khác, hệ thống vẫn kiên quyết chuyển hướng về trang đổi mật khẩu.
-   - Nhập mật khẩu mới thỏa mãn độ mạnh $\rightarrow$ Hệ thống cập nhật thành công và mở khóa truy cập toàn diện.
+| STT | Tài khoản  |   Mật khẩu   |  Vai trò  | Họ tên / Nhà vườn               | Trạng thái | Mục đích kiểm thử                                                                                                                        |
+| :-: | :----------- | :------------: | :---------: | :----------------------------------- | :----------: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+|  1  | `admin`    | `110123117@` |    Admin    | Quản Trị Hệ Thống                | Đã duyệt | Duyệt nông hộ mới, khóa tài khoản, cấp mật khẩu tạm, quản lý danh mục.                                                          |
+|  2  | `dangkhoi` | `110123117@` |  Nông hộ  | Nông Hộ Anh Khôi (Vĩnh Long)     | Đã duyệt | Đã có sẵn sản phẩm (Bưởi Da Xanh, Dừa Xiêm). Dùng để thử quản lý sản phẩm, tiếp nhận đơn hàng, xem gợi ý ghép nối. |
+|  3  | `tuanhuy`  | `110123117@` |  Nông hộ  | Nông Hộ Anh Huy (Châu Thành)     | Đã duyệt | Đã có sản phẩm (Cà Chua Beef, Xà Lách). Dùng để thử tính năng báo giá lại đơn hàng.                                       |
+|  4  | `minhnhut` | `110123117@` |  Nông hộ  | Trang Trại Minh Nhựt (Tiền Giang) | Chờ duyệt | Thử nghiệm tính năng Admin phê duyệt hồ sơ nông hộ mới.                                                                            |
+|  5  | `phuocloc` | `110123117@` | Người mua | Cửa Hàng TP Phước Lộc           | Đã duyệt | Thử nghiệm giỏ hàng, đề xuất giá khi mua, đăng tin nhu cầu thu mua sỉ.                                                            |
+|  6  | `thuyvy`   | `110123117@` | Người mua | Chủ Cửa Hàng Thúy Vy             | Đã duyệt | Thử nghiệm tính năng bắt buộc đổi mật khẩu mới khi đăng nhập bằng mật khẩu tạm.                                             |
 
 ---
 
-## 8. TỔNG KẾT & HƯỚNG PHÁT TRIỂN
+## 5. HƯỚNG DẪN SỬ DỤNG THEO VAI TRÒ
 
-- Đáp ứng đầy đủ các tiêu chuẩn ban đầu đã đề ra về tính thực tiễn, tính ứng dụng và độ hoàn thiện giao diện.
-- Mã nguồn viết theo cấu trúc MVC, dễ mở rộng, bảo mật cao và chú thích đầy đủ bằng tiếng Việt.
-- Đảm bảo tính khả thi cao khi triển khai tại các địa phương, hỗ trợ tích cực cho quá trình chuyển đổi số nông nghiệp.
+### 5.1. Dành cho Khách vãng lai (Chưa đăng nhập)
 
-**Hướng phát triển tiếp theo:**
+- **Xem sàn nông sản:** Xem danh sách sản phẩm, ảnh chụp, giá niêm yết, tình trạng mùa vụ và số lượng kho.
+- **Tìm kiếm và lọc:**
+  - Nhập từ khóa tên sản phẩm vào ô tìm kiếm.
+  - Nhấp vào danh mục (Trái cây, Rau củ sạch, Lúa gạo...) để xem theo ngành hàng.
+  - Lọc theo mùa vụ: Còn hàng, Sắp thu hoạch, Đang canh tác, Tạm hết hàng.
+  - Lọc theo tỉnh thành: Dropdown chỉ hiển thị các tỉnh hiện có hàng bán.
+- **Xem ngày thu hoạch dự kiến:** Các mặt hàng có trạng thái "Sắp thu hoạch" sẽ hiển thị ngày dự kiến thu hoạch để khách hàng chủ động thời gian đặt.
+- **Bảo mật thông tin:** Số điện thoại của nông hộ được che dưới dạng `0912.xxx.xxx`. Khi bấm mua hàng hoặc liên hệ, hệ thống sẽ yêu cầu đăng nhập.
+- **Đăng ký:** Bấm nút Đăng ký ở góc trên bên phải để tạo tài khoản Người mua hoặc Nông hộ.
 
-- Tích hợp gửi thông báo qua Zalo khi có đơn hàng mới phát sinh.
-- Mở rộng chức năng nhật ký canh tác số điện tử cho nông hộ theo từng lô mùa vụ.
-- Phát triển ứng dụng di động (Mobile App) dành riêng cho bà con nông dân tại vườn.
+### 5.2. Dành cho Người mua
+
+- **Mua hàng:**
+  1. Chọn sản phẩm trên sàn -> bấm "Thêm vào giỏ".
+  2. Bấm vào biểu tượng Giỏ hàng trên thanh điều hướng.
+  3. Điều chỉnh số lượng cần mua.
+  4. Nhập mức giá đề xuất (nếu muốn thương lượng giá sỉ) và nhập ghi chú yêu cầu đóng gói / giao hàng.
+  5. Bấm "Gửi Đơn Đặt Hàng".
+- **Theo dõi đơn hàng (Menu Đơn Hàng Của Tôi):**
+  - Tab "Đang xử lý": Đơn mới gửi hoặc đơn nông hộ vừa báo giá lại. Người mua có thể bấm Chấp nhận giá hoặc Hủy đơn.
+  - Tab "Đã xác nhận": Nông hộ đã đồng ý chốt đơn, hàng đang được chuẩn bị.
+  - Tab "Lịch sử": Danh sách các đơn đã hoàn thành hoặc đã hủy.
+- **Đăng tin nhu cầu thu mua (Menu Tin Nhu Cầu Thu Mua):**
+  - Đăng nhu cầu mua số lượng lớn: Chọn danh mục, số lượng, giá tối đa, tỉnh thành và hạn chót cần hàng.
+  - Hệ thống sẽ đưa tin này vào bảng gợi ý của các nông hộ phù hợp.
+
+### 5.3. Dành cho Nông hộ
+
+- **Đăng ký và duyệt:** Nông hộ sau khi đăng ký sẽ ở trạng thái chờ duyệt. Sau khi Admin phê duyệt sẽ được quyền đăng bán hàng.
+- **Quản lý sản phẩm (Menu Nông Sản Của Tôi):**
+  - Thêm sản phẩm mới:
+    + Nhập tên, chọn danh mục.
+    + Nhập sản lượng kho và chọn đơn vị kho (tấn, tạ, kg, bó, trái, thùng, bao).
+    + Nhập giá bán và chọn đơn vị tính giá (đ/kg, đ/trái, đ/bó...). Nếu để trống giá sẽ hiển thị "Liên hệ báo giá".
+    + Chọn tình trạng mùa vụ. Nếu chọn "Sắp thu hoạch", nhập thêm ngày dự kiến thu hoạch.
+    + Chọn chứng nhận chất lượng: VietGAP, GlobalGAP, Hữu cơ, OCOP.
+    + Tải ảnh đại diện và bấm Lưu.
+  - Ẩn / Hiện sản phẩm: Bấm nút để tạm ẩn khỏi sàn mà không làm mất dữ liệu đơn hàng cũ.
+- **Xử lý đơn đặt hàng (Menu Đơn Đặt Hàng):**
+  - Xem đơn khách gửi kèm mức giá khách đề xuất tại tab "Đang xử lý".
+  - Có 3 lựa chọn xử lý:
+    1. Xác nhận đơn: Đồng ý bán theo giá đó -> Hệ thống tự động trừ sản lượng trong kho.
+    2. Báo giá lại: Nhập mức giá mới gửi lại cho người mua thương lượng.
+    3. Hủy đơn: Từ chối đơn nếu không đáp ứng được.
+  - Sau khi giao hàng xong, bấm "Hoàn thành giao dịch" để chuyển đơn vào lịch sử và tích lũy uy tín.
+- **Xem cơ hội thị trường (Menu Gợi Ý Ghép Nối %):**
+  - Xem danh sách người mua đang cần thu mua với điểm phù hợp (%) được hệ thống tính tự động.
+  - Xem số điện thoại và thông tin người mua để chủ động liên hệ chào hàng.
+
+### 5.4. Dành cho Quản trị viên (Admin)
+
+- Đăng nhập bằng tài khoản `admin`.
+- **Duyệt nông hộ mới:** Tại mục "Hồ sơ nông hộ chờ duyệt", kiểm tra thông tin và bấm Duyệt hồ sơ hoặc Từ chối.
+- **Quản lý tài khoản:** Xem danh sách thành viên, bấm nút Khóa tài khoản vi phạm hoặc Mở khóa lại.
+- **Cấp mật khẩu tạm:** Khi thành viên quên mật khẩu, bấm nút "Cấp mật khẩu tạm". Hệ thống tạo mật khẩu ngẫu nhiên để gửi cho người dùng, đồng thời kích hoạt cờ bắt buộc đổi mật khẩu mới ngay khi họ đăng nhập lại.
+- **Quản lý danh mục:** Thêm ngành hàng nông sản mới hoặc xóa danh mục không còn sử dụng.
+
+---
+
+## 6. KỊCH BẢN KIỂM THỬ MẪU
+
+1. **Kiểm thử tìm kiếm và lọc tỉnh thành:**
+
+   - Truy cập trang chủ khi chưa đăng nhập.
+   - Thử bấm lọc danh mục Trái cây.
+   - Bấm chọn dropdown tỉnh thành: chỉ thấy hiển thị Vĩnh Long và Tiền Giang (các tỉnh thực tế đang có hàng).
+   - Bấm xem chi tiết một sản phẩm: số điện thoại nông hộ bị che `0912.xxx.xxx`.
+2. **Kiểm thử luồng đặt hàng và trừ kho:**
+
+   - Đăng nhập tài khoản người mua: `phuocloc`.
+   - Chọn mua sản phẩm "Bưởi Da Xanh Ruột Đỏ", thêm vào giỏ.
+   - Vào giỏ hàng, đặt số lượng 200 kg, đề xuất giá 42.000 đ/kg và gửi đơn.
+   - Đăng xuất, đăng nhập tài khoản nông hộ: `dangkhoi`.
+   - Vào Đơn đặt hàng -> tab Đang xử lý -> bấm "Xác nhận đơn".
+   - Kiểm tra lại sản phẩm: kho từ 3.5 tấn tự động giảm xuống còn 3.3 tấn (trừ đúng 200 kg).
+3. **Kiểm thử thuật toán gợi ý ghép nối:**
+
+   - Đăng nhập tài khoản nông hộ: `dangkhoi`.
+   - Vào menu "Gợi Ý Ghép Nối %".
+   - Thấy nhu cầu mua 1.5 tấn trái cây tại Vĩnh Long của khách Phước Lộc đạt độ phù hợp 90%.
+4. **Kiểm thử Admin cấp mật khẩu tạm và bắt buộc đổi mật khẩu:**
+
+   - Đăng nhập tài khoản `thuyvy` (tài khoản đang có cờ dùng mật khẩu tạm).
+   - Hệ thống lập tức chuyển hướng đến trang đổi mật khẩu mới và không cho phép truy cập trang khác cho đến khi đổi xong.
+
+---
+
+## 7. XỬ LÝ SỰ CỐ THƯỜNG GẶP
+
+1. **Không khởi động được Apache (xung đột cổng 80 hoặc 443):**
+
+   - Trong XAMPP Control Panel, bấm Config của Apache -> chọn `httpd.conf`.
+   - Tìm `Listen 80` đổi thành `Listen 8080`hoặc cổng nào dễ nhớ không trùng với các cổng khác trên ứng dụng, lưu lại rồi Start lại Apache.
+   - Truy cập qua địa chỉ: `http://localhost:8080/nongho-app/`.
+2. **Không kết nối được CSDL ("Lỗi: Không thể kết nối cơ sở dữ liệu..."):**
+
+   - Kiểm tra nút MySQL trong XAMPP đã Start sang màu xanh chưa.
+   - Mở tệp `config.php` kiểm tra lại tên database có đúng là `nong_ho_db` và mật khẩu MySQL tương ứng với máy tính của bạn.
+3. **Lỗi font chữ tiếng Việt khi xem trong CSDL:**
+
+   - Đảm bảo khi tạo database trong phpMyAdmin đã chọn Collation là `utf8mb4_unicode_ci` trước khi nhập file SQL.
+4. **Quên mật khẩu tài khoản:**
+
+   - Đăng nhập tài khoản `admin` -> Vào Bảng Quản Trị -> Tìm tài khoản đó và bấm nút "Cấp mật khẩu tạm".

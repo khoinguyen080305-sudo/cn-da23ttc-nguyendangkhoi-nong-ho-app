@@ -12,8 +12,8 @@
 
 ## 2. CÁC TÍNH NĂNG CHÍNH
 
-- **Sàn nông sản và bộ lọc:** Tìm kiếm theo từ khóa, lọc theo danh mục ngành hàng, lọc theo tình trạng mùa vụ và bộ lọc tỉnh thành động (chỉ hiện các tỉnh hiện có hàng đang bán).
-- **Theo dõi mùa vụ và ngày thu hoạch:** Quản lý 4 trạng thái (Đang canh tác, Sắp thu hoạch, Còn hàng, Tạm hết hàng). Riêng trạng thái "Sắp thu hoạch" có hiển thị ngày dự kiến thu hoạch (d/m/Y) để người mua đặt trước.
+- **Trang nông sản và bộ lọc:** Tìm kiếm theo từ khóa, lọc theo danh mục ngành hàng, lọc theo tình trạng mùa vụ và bộ lọc tỉnh thành động (chỉ hiện các tỉnh hiện có hàng đang bán).
+- **Theo dõi mùa vụ và ngày thu hoạch:** Quản lý 3 trạng thái (Còn hàng, Sắp thu hoạch, Tạm hết hàng). Riêng trạng thái "Sắp thu hoạch" có hiển thị ngày dự kiến thu hoạch (d/m/Y) để người mua đặt trước.
 - **Tách biệt đơn vị kho và đơn vị giá:** Quản lý sản lượng kho (tấn, tạ, kg, bó, trái...) độc lập với đơn vị định giá bán (đ/kg, đ/trái, đ/bó...) và tự động quy đổi khi trừ kho.
 - **Quy trình đặt hàng và thương lượng giá:** Người mua thêm vào giỏ, nhập số lượng và đề xuất giá mua -> Nông hộ tiếp nhận, có thể Xác nhận đơn (tự động trừ kho), Báo giá lại hoặc Hủy đơn -> Hoàn thành giao dịch.
 - **Gợi ý ghép nối cung cầu (Smart Matching %):** Tự động so khớp tin cần mua của người mua với kho hàng của nông hộ theo 5 tiêu chí: danh mục, sản lượng đáp ứng, mức giá, địa bàn cùng tỉnh thành và thời gian thu hoạch.
@@ -42,7 +42,7 @@ Sao chép toàn bộ thư mục `nongho-app` vào thư mục `htdocs` của XAMP
 1. Mở ứng dụng **XAMPP Control Panel**.
 2. Nhấn nút **Start** tại dòng **Apache**.
 3. Nhấn nút **Start** tại dòng **MySQL**.
-   *(Đảm bảo cả 2 dịch vụ đều chuyển sang màu xanh lá cây).*
+   _(Đảm bảo cả 2 dịch vụ đều chuyển sang màu xanh lá cây)._
 
 #### Bước 3: Tạo cơ sở dữ liệu và nạp dữ liệu mẫu
 
@@ -68,7 +68,7 @@ $mat_khau  = "";          // XAMPP mặc định để trống
 $csdl      = "nong_ho_db";
 ```
 
-*(Nếu MySQL của bạn có đặt mật khẩu riêng, hãy điền vào biến `$mat_khau`).*
+_(Nếu MySQL của bạn có đặt mật khẩu riêng, hãy điền vào biến `$mat_khau`)._
 
 #### Bước 5: Truy cập ứng dụng
 
@@ -78,39 +78,21 @@ Mở trình duyệt và truy cập theo đường dẫn:
 http://localhost/nongho-app/
 ```
 
----
+## 4. HƯỚNG DẪN SỬ DỤNG THEO VAI TRÒ
 
-## 4. BẢNG TÀI KHOẢN THỬ NGHIỆM
-
-Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
-*(Quy ước: Tên tài khoản luôn viết thường không dấu).*
-
-| STT | Tài khoản  |   Mật khẩu   |  Vai trò  | Họ tên / Nhà vườn               | Trạng thái | Mục đích kiểm thử                                                                                                                        |
-| :-: | :----------- | :------------: | :---------: | :----------------------------------- | :----------: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-|  1  | `admin`    | `110123117@` |    Admin    | Quản Trị Hệ Thống                | Đã duyệt | Duyệt nông hộ mới, khóa tài khoản, cấp mật khẩu tạm, quản lý danh mục.                                                          |
-|  2  | `dangkhoi` | `110123117@` |  Nông hộ  | Nông Hộ Anh Khôi (Vĩnh Long)     | Đã duyệt | Đã có sẵn sản phẩm (Bưởi Da Xanh, Dừa Xiêm). Dùng để thử quản lý sản phẩm, tiếp nhận đơn hàng, xem gợi ý ghép nối. |
-|  3  | `tuanhuy`  | `110123117@` |  Nông hộ  | Nông Hộ Anh Huy (Châu Thành)     | Đã duyệt | Đã có sản phẩm (Cà Chua Beef, Xà Lách). Dùng để thử tính năng báo giá lại đơn hàng.                                       |
-|  4  | `minhnhut` | `110123117@` |  Nông hộ  | Trang Trại Minh Nhựt (Tiền Giang) | Chờ duyệt | Thử nghiệm tính năng Admin phê duyệt hồ sơ nông hộ mới.                                                                            |
-|  5  | `phuocloc` | `110123117@` | Người mua | Cửa Hàng TP Phước Lộc           | Đã duyệt | Thử nghiệm giỏ hàng, đề xuất giá khi mua, đăng tin nhu cầu thu mua sỉ.                                                            |
-|  6  | `thuyvy`   | `110123117@` | Người mua | Chủ Cửa Hàng Thúy Vy             | Đã duyệt | Thử nghiệm tính năng bắt buộc đổi mật khẩu mới khi đăng nhập bằng mật khẩu tạm.                                             |
-
----
-
-## 5. HƯỚNG DẪN SỬ DỤNG THEO VAI TRÒ
-
-### 5.1. Dành cho Khách vãng lai (Chưa đăng nhập)
+### 4.1. Dành cho Khách hưa đăng nhập
 
 - **Xem sàn nông sản:** Xem danh sách sản phẩm, ảnh chụp, giá niêm yết, tình trạng mùa vụ và số lượng kho.
 - **Tìm kiếm và lọc:**
   - Nhập từ khóa tên sản phẩm vào ô tìm kiếm.
   - Nhấp vào danh mục (Trái cây, Rau củ sạch, Lúa gạo...) để xem theo ngành hàng.
-  - Lọc theo mùa vụ: Còn hàng, Sắp thu hoạch, Đang canh tác, Tạm hết hàng.
+  - Lọc theo mùa vụ: Còn hàng, Sắp thu hoạch, Tạm hết hàng.
   - Lọc theo tỉnh thành: Dropdown chỉ hiển thị các tỉnh hiện có hàng bán.
 - **Xem ngày thu hoạch dự kiến:** Các mặt hàng có trạng thái "Sắp thu hoạch" sẽ hiển thị ngày dự kiến thu hoạch để khách hàng chủ động thời gian đặt.
 - **Bảo mật thông tin:** Số điện thoại của nông hộ được che dưới dạng `0912.xxx.xxx`. Khi bấm mua hàng hoặc liên hệ, hệ thống sẽ yêu cầu đăng nhập.
 - **Đăng ký:** Bấm nút Đăng ký ở góc trên bên phải để tạo tài khoản Người mua hoặc Nông hộ.
 
-### 5.2. Dành cho Người mua
+### 4.2. Dành cho Người mua
 
 - **Mua hàng:**
   1. Chọn sản phẩm trên sàn -> bấm "Thêm vào giỏ".
@@ -118,7 +100,7 @@ Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
   3. Điều chỉnh số lượng cần mua.
   4. Nhập mức giá đề xuất (nếu muốn thương lượng giá sỉ) và nhập ghi chú yêu cầu đóng gói / giao hàng.
   5. Bấm "Gửi Đơn Đặt Hàng".
-- **Theo dõi đơn hàng (Menu Đơn Hàng Của Tôi):**
+- **Theo dõi đơn hàng:**
   - Tab "Đang xử lý": Đơn mới gửi hoặc đơn nông hộ vừa báo giá lại. Người mua có thể bấm Chấp nhận giá hoặc Hủy đơn.
   - Tab "Đã xác nhận": Nông hộ đã đồng ý chốt đơn, hàng đang được chuẩn bị.
   - Tab "Lịch sử": Danh sách các đơn đã hoàn thành hoặc đã hủy.
@@ -126,17 +108,17 @@ Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
   - Đăng nhu cầu mua số lượng lớn: Chọn danh mục, số lượng, giá tối đa, tỉnh thành và hạn chót cần hàng.
   - Hệ thống sẽ đưa tin này vào bảng gợi ý của các nông hộ phù hợp.
 
-### 5.3. Dành cho Nông hộ
+### 4.3. Dành cho Nông hộ
 
 - **Đăng ký và duyệt:** Nông hộ sau khi đăng ký sẽ ở trạng thái chờ duyệt. Sau khi Admin phê duyệt sẽ được quyền đăng bán hàng.
-- **Quản lý sản phẩm (Menu Nông Sản Của Tôi):**
+- **Quản lý sản phẩm:**
   - Thêm sản phẩm mới:
-    + Nhập tên, chọn danh mục.
-    + Nhập sản lượng kho và chọn đơn vị kho (tấn, tạ, kg, bó, trái, thùng, bao).
-    + Nhập giá bán và chọn đơn vị tính giá (đ/kg, đ/trái, đ/bó...). Nếu để trống giá sẽ hiển thị "Liên hệ báo giá".
-    + Chọn tình trạng mùa vụ. Nếu chọn "Sắp thu hoạch", nhập thêm ngày dự kiến thu hoạch.
-    + Chọn chứng nhận chất lượng: VietGAP, GlobalGAP, Hữu cơ, OCOP.
-    + Tải ảnh đại diện và bấm Lưu.
+    - Nhập tên, chọn danh mục.
+    - Nhập sản lượng kho và chọn đơn vị kho (tấn, kg, bó, trái).
+    - Nhập giá bán và chọn đơn vị tính giá (đ/kg, đ/trái, đ/bó...). Nếu để trống giá sẽ hiển thị "Liên hệ báo giá".
+    - Chọn tình trạng mùa vụ. Nếu chọn "Sắp thu hoạch", nhập thêm ngày dự kiến thu hoạch.
+    - Chọn chứng nhận chất lượng: VietGAP, GlobalGAP, Hữu cơ, OCOP.
+    - Tải ảnh đại diện và bấm Lưu.
   - Ẩn / Hiện sản phẩm: Bấm nút để tạm ẩn khỏi sàn mà không làm mất dữ liệu đơn hàng cũ.
 - **Xử lý đơn đặt hàng (Menu Đơn Đặt Hàng):**
   - Xem đơn khách gửi kèm mức giá khách đề xuất tại tab "Đang xử lý".
@@ -149,7 +131,7 @@ Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
   - Xem danh sách người mua đang cần thu mua với điểm phù hợp (%) được hệ thống tính tự động.
   - Xem số điện thoại và thông tin người mua để chủ động liên hệ chào hàng.
 
-### 5.4. Dành cho Quản trị viên (Admin)
+### 4.4. Dành cho Quản trị viên
 
 - Đăng nhập bằng tài khoản `admin`.
 - **Duyệt nông hộ mới:** Tại mục "Hồ sơ nông hộ chờ duyệt", kiểm tra thông tin và bấm Duyệt hồ sơ hoặc Từ chối.
@@ -159,7 +141,7 @@ Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
 
 ---
 
-## 6. KỊCH BẢN KIỂM THỬ MẪU
+## 5. KỊCH BẢN KIỂM THỬ MẪU
 
 1. **Kiểm thử tìm kiếm và lọc tỉnh thành:**
 
@@ -169,25 +151,25 @@ Mật khẩu chung cho tất cả tài khoản mẫu là: `110123117@`
    - Bấm xem chi tiết một sản phẩm: số điện thoại nông hộ bị che `0912.xxx.xxx`.
 2. **Kiểm thử luồng đặt hàng và trừ kho:**
 
-   - Đăng nhập tài khoản người mua: `phuocloc`.
-   - Chọn mua sản phẩm "Bưởi Da Xanh Ruột Đỏ", thêm vào giỏ.
+   - Đăng nhập tài khoản người mua:
+   - Chọn mua sản phẩm "Cà Chua", thêm vào giỏ.
    - Vào giỏ hàng, đặt số lượng 200 kg, đề xuất giá 42.000 đ/kg và gửi đơn.
-   - Đăng xuất, đăng nhập tài khoản nông hộ: `dangkhoi`.
+   - Đăng xuất, đăng nhập tài khoản nông hộ:
    - Vào Đơn đặt hàng -> tab Đang xử lý -> bấm "Xác nhận đơn".
-   - Kiểm tra lại sản phẩm: kho từ 3.5 tấn tự động giảm xuống còn 3.3 tấn (trừ đúng 200 kg).
+   - Kiểm tra lại sản phẩm: ví dụ kho từ 3.5 tấn tự động giảm xuống còn 3.3 tấn (trừ đúng 200 kg).
 3. **Kiểm thử thuật toán gợi ý ghép nối:**
 
-   - Đăng nhập tài khoản nông hộ: `dangkhoi`.
+   - Đăng nhập tài khoản nông hộ:
    - Vào menu "Gợi Ý Ghép Nối %".
    - Thấy nhu cầu mua 1.5 tấn trái cây tại Vĩnh Long của khách Phước Lộc đạt độ phù hợp 90%.
 4. **Kiểm thử Admin cấp mật khẩu tạm và bắt buộc đổi mật khẩu:**
 
-   - Đăng nhập tài khoản `thuyvy` (tài khoản đang có cờ dùng mật khẩu tạm).
+   - Đăng nhập tài khoản.
    - Hệ thống lập tức chuyển hướng đến trang đổi mật khẩu mới và không cho phép truy cập trang khác cho đến khi đổi xong.
 
 ---
 
-## 7. XỬ LÝ SỰ CỐ THƯỜNG GẶP
+## 6. XỬ LÝ SỰ CỐ THƯỜNG GẶP
 
 1. **Không khởi động được Apache (xung đột cổng 80 hoặc 443):**
 

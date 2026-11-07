@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 84" width="350" height="84">
+  <defs>
+    <!-- ========================================================
+         GRADIENTS BIỂU TƯỢNG ICON SQUIRCLE 3D
+         ======================================================== -->
+    <!-- Gradient Nền Icon Squircle (Xanh Ngọc 3D bóng bẩy) -->
+    <linearGradient id="sqBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f576" />
+      <stop offset="30%" stop-color="#00c853" />
+      <stop offset="70%" stop-color="#007e33" />
+      <stop offset="100%" stop-color="#003d19" />
+    </linearGradient>
+
+    <!-- Viền phản quang Neon sáng bóng góc trên-trái -->
+    <linearGradient id="sqRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0" stop-opacity="0.95" />
+      <stop offset="40%" stop-color="#34d399" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Gradient Mặt Trời Vàng Nắng Rực Rỡ -->
+    <linearGradient id="sunSphereGrad" x1="20%" y1="20%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff59d" />
+      <stop offset="40%" stop-color="#ffca28" />
+      <stop offset="85%" stop-color="#ff8f00" />
+      <stop offset="100%" stop-color="#e65100" />
+    </linearGradient>
+
+    <!-- Gradient Lá Vàng Hậu Cảnh (Vụ mùa bội thu) -->
+    <linearGradient id="goldLeafGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff8f00" />
+      <stop offset="60%" stop-color="#ffca28" />
+      <stop offset="100%" stop-color="#fff9c4" />
+    </linearGradient>
+
+    <!-- Gradient Lá Xanh Tiền Cảnh (Mầm xanh vươn mình) -->
+    <linearGradient id="frontLeafGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#007e33" />
+      <stop offset="50%" stop-color="#00c853" />
+      <stop offset="100%" stop-color="#69f0ae" />
+    </linearGradient>
+
+    <!-- ========================================================
+         GRADIENTS CHỮ "THÔNG VỤ" SANG TRỌNG & NỔI BẬT
+         ======================================================== -->
+    <!-- Chữ "THÔNG" - Xanh Ngọc Lục Bảo Sơn Mài Sâu Sắc -->
+    <linearGradient id="thongTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="35%" stop-color="#047857" />
+      <stop offset="70%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+
+    <!-- Chữ "VỤ" - Xanh Ngọc Bích Tươi Sáng & Tràn Đầy Năng Lượng -->
+    <linearGradient id="vuTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="35%" stop-color="#059669" />
+      <stop offset="75%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+
+    <!-- ========================================================
+         GRADIENTS HIỆU ỨNG XUNG QUANH (DẢI SÓNG, HÀO QUANG, SAO)
+         ======================================================== -->
+    <!-- Dải Sóng Năng Lượng Kết Nối Mùa Vụ (Chuyển sắc Ngọc Bích -> Vàng Hoàng Kim) -->
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00e676" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#10b981" stop-opacity="0.85" />
+      <stop offset="75%" stop-color="#ffca28" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="1" />
+    </linearGradient>
+
+    <!-- Hạt Sao Lấp Lánh Hoàng Kim -->
+    <linearGradient id="sparkleGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff9c4" />
+      <stop offset="50%" stop-color="#ffca28" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Hào Quang Ánh Sáng Ban Mai Mềm Mại (Ambient Aura) -->
+    <radialGradient id="ambientHalo" cx="30%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#ffd54f" stop-opacity="0.28" />
+      <stop offset="40%" stop-color="#69f0ae" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#00e676" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- ========================================================
+       1. HIỆU ỨNG HÀO QUANG ÁNH SÁNG NỀN XUNG QUANH (AMBIENT GLOW)
+       ======================================================== -->
+  <circle cx="48" cy="42" r="44" fill="url(#ambientHalo)" />
+  <ellipse cx="215" cy="44" rx="125" ry="34" fill="url(#ambientHalo)" />
+
+  <!-- ========================================================
+       2. DẢI SÓNG NĂNG LƯỢNG KẾT NỐI MÙA VỤ (DYNAMIC ENERGY STREAM)
+       ======================================================== -->
+  <!-- Dải lụa năng lượng mềm mại uốn lượn dưới chân chữ -->
+  <path d="M 88,59 C 145,69 230,69 330,55 C 302,65 215,73 88,64 Z" fill="url(#swooshGrad)" />
+  <!-- Viền sáng vàng hoàng kim thanh thoát -->
+  <path d="M 96,65 Q 210,75 336,57" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" opacity="0.9" />
+
+  <!-- Hạt mầm vàng may mắn / quả chín tại đuôi sóng -->
+  <circle cx="336" cy="57" r="3.5" fill="url(#sparkleGoldGrad)" stroke="#ffffff" stroke-width="0.8" />
+  <circle cx="335" cy="56" r="1.3" fill="#ffffff" />
+
+  <!-- ========================================================
+       3. BIỂU TƯỢNG ICON SQUIRCLE 3D CHUẨN (TỪ LOGO_ICON.SVG)
+       ======================================================== -->
+  <g transform="translate(12, 10)">
+    <!-- Đổ bóng 3D chân thực -->
+    <rect x="0" y="4" width="64" height="64" rx="18" fill="#022a16" opacity="0.32" />
+
+    <!-- Khối Squircle Nền Xanh Ngọc Bóng Bẩy -->
+    <rect x="0" y="0" width="64" height="64" rx="18" fill="url(#sqBgGrad)" />
+
+    <!-- Viền Neon Sáng Bóng Phản Quang -->
+    <rect x="1" y="1" width="62" height="62" rx="17" fill="none" stroke="url(#sqRimGrad)" stroke-width="2" />
+
+    <!-- Lớp kính lóa sáng góc trên -->
+    <path d="M 0,18 C 0,8 8,0 18,0 L 40,0 C 18,0 0,18 0,40 Z" fill="#ffffff" opacity="0.32" />
+
+    <!-- Cung sáng phản chiếu đáy icon -->
+    <path d="M 12,56 C 24,62 40,62 52,56" fill="none" stroke="#69f0ae" stroke-width="1.8" opacity="0.6" stroke-linecap="round" />
+
+    <!-- Mặt trời vàng rực rỡ với tia nắng tỏa sáng -->
+    <g transform="translate(43, 22)">
+      <g stroke="#ffca28" stroke-width="2.6" stroke-linecap="round" opacity="0.95">
+        <line x1="0" y1="-14" x2="0" y2="-11" />
+        <line x1="10" y1="-10" x2="8" y2="-8" />
+        <line x1="14" y1="0" x2="11" y2="0" />
+        <line x1="10" y1="10" x2="8" y2="8" />
+        <line x1="0" y1="14" x2="0" y2="11" />
+        <line x1="-10" y1="10" x2="-8" y2="8" />
+        <line x1="-14" y1="0" x2="-11" y2="0" />
+        <line x1="-10" y1="-10" x2="-8" y2="-8" />
+      </g>
+      <circle cx="0" cy="0" r="9.5" fill="url(#sunSphereGrad)" />
+      <circle cx="-3" cy="-3" r="3" fill="#ffffff" opacity="0.75" />
+    </g>
+
+    <!-- Lá vàng đâm chồi hướng nắng -->
+    <path d="M 28,42 C 37,30 50,31 53,35 C 51,44 39,48 28,42 Z" 
+          fill="url(#goldLeafGrad)" 
+          stroke="#ffe082" 
+          stroke-width="1.2" />
+    <path d="M 33,39 Q 42,35 48,34" fill="none" stroke="#fff9c4" stroke-width="1" stroke-linecap="round" opacity="0.8" />
+
+    <!-- Chiếc lá xanh viền trắng dày nổi khối tiền cảnh -->
+    <path d="M 16,47 C 14,31 28,16 46,18 C 45,33 34,49 16,47 Z" fill="#00240f" opacity="0.4" />
+    <path d="M 16,46 C 14,30 27,15 45,17 C 44,32 33,48 16,46 Z" 
+          fill="url(#frontLeafGrad)" 
+          stroke="#ffffff" 
+          stroke-width="3.5" 
+          stroke-linejoin="round" />
+    <path d="M 20,43 Q 29,31 40,22" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.95" />
+  </g>
+
+  <!-- ========================================================
+       4. TYPOGRAPHY: CHỮ "THÔNG VỤ" TO RÕ, ĐẲNG CẤP, SIÊU SẮC NÉT
+       ======================================================== -->
+  <!-- Lớp bóng đổ 3D dưới chân chữ -->
+  <text x="88" y="55" 
+        font-family="'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="44" 
+        font-weight="900" 
+        letter-spacing="0.2px" 
+        fill="#022a16" 
+        opacity="0.25">
+    <tspan>THÔNG</tspan><tspan dx="10">VỤ</tspan>
+  </text>
+
+  <!-- Lớp viền phản quang sáng bóng viền trắng mờ tạo độ nổi khối -->
+  <text x="88" y="53" 
+        font-family="'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="44" 
+        font-weight="900" 
+        letter-spacing="0.2px" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="1.8" 
+        stroke-linejoin="round" 
+        opacity="0.7">
+    <tspan>THÔNG</tspan><tspan dx="10">VỤ</tspan>
+  </text>
+
+  <!-- Chữ chính chuyển sắc Ngọc Lục Bảo & Ngọc Bích Tươi -->
+  <text x="88" y="53" 
+        font-family="'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="44" 
+        font-weight="900" 
+        letter-spacing="0.2px">
+    <tspan fill="url(#thongTextGrad)">THÔNG</tspan><tspan dx="10" fill="url(#vuTextGrad)">VỤ</tspan>
+  </text>
+
+  <!-- ========================================================
+       5. HIỆU ỨNG TIA SAO HOÀNG KIM & HẠT SÁNG LẤP LÁNH XUNG QUANH
+       ======================================================== -->
+  <!-- Ngôi sao 1: Cạnh mặt trời của icon -->
+  <g transform="translate(77, 13)">
+    <path d="M 0,-7.5 Q 0,0 7.5,0 Q 0,0 0,7.5 Q 0,0 -7.5,0 Q 0,0 0,-7.5 Z" fill="url(#sparkleGoldGrad)" />
+    <circle cx="0" cy="0" r="1.7" fill="#ffffff" />
+  </g>
+
+  <!-- Ngôi sao 2: Đỉnh chữ Ô tinh tế -->
+  <g transform="translate(204, 13)">
+    <path d="M 0,-6 Q 0,0 6,0 Q 0,0 0,6 Q 0,0 -6,0 Q 0,0 0,-6 Z" fill="url(#sparkleGoldGrad)" />
+    <circle cx="0" cy="0" r="1.4" fill="#ffffff" />
+  </g>
+
+  <!-- Ngôi sao 3: Bay trên đỉnh chữ VỤ -->
+  <g transform="translate(328, 17)">
+    <path d="M 0,-7 Q 0,0 7,0 Q 0,0 0,7 Q 0,0 -7,0 Q 0,0 0,-7 Z" fill="url(#sparkleGoldGrad)" />
+    <circle cx="0" cy="0" r="1.6" fill="#ffffff" />
+  </g>
+
+  <!-- Ngôi sao 4: Phía dưới góc trái logo -->
+  <g transform="translate(86, 73)">
+    <path d="M 0,-4.5 Q 0,0 4.5,0 Q 0,0 0,4.5 Q 0,0 -4.5,0 Q 0,0 0,-4.5 Z" fill="#69f0ae" />
+    <circle cx="0" cy="0" r="1.1" fill="#ffffff" />
+  </g>
+
+  <!-- Chiếc lá vàng lượn gió nghệ thuật góc phải đón ánh sáng -->
+  <path d="M 328,26 C 337,21 345,23 347,28 C 345,34 336,35 330,31 Z" 
+        fill="url(#goldLeafGrad)" 
+        stroke="#ffb300" 
+        stroke-width="0.8" />
+  <path d="M 331,29 Q 338,27 343,26" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.85" />
+
+  <!-- Các đốm sáng lơ lửng xung quanh (Fairy dust & Hạt sương mai) -->
+  <circle cx="114" cy="17" r="1.8" fill="#ffca28" opacity="0.9" />
+  <circle cx="162" cy="12" r="1.3" fill="#ffd54f" opacity="0.8" />
+  <circle cx="270" cy="14" r="1.6" fill="#ffd54f" opacity="0.85" />
+  <circle cx="342" cy="38" r="1.4" fill="#69f0ae" opacity="0.8" />
+  <circle cx="316" cy="74" r="1.3" fill="#ffca28" opacity="0.75" />
+  <circle cx="180" cy="72" r="1.2" fill="#69f0ae" opacity="0.65" />
+</svg>

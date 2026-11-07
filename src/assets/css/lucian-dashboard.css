@@ -1,0 +1,572 @@
+/* Lucian UX/UI Prompt #039, #047, #098 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/ */
+/* ==============================================================================
+   LUCIAN UX/UI DASHBOARD SYSTEM CHO THÔNG VỤ (NÔNG HỘ & NGƯỜI MUA)
+   - #039 Sliding Pill Tabs (Chuyển đổi Tab Hồ sơ & Thống kê mượt mà với spring physics)
+   - #047 Period Segmented Control (Bộ lọc thời gian Ngày/Tuần/Tháng/Năm/Tất cả)
+   - #098 Live Metric Card (Chỉ số KPI số lớn, tabular-nums, badge rõ ràng)
+   - #095 Staggered Chart Surface & Rank Lists
+   ============================================================================== */
+
+:root {
+  --ux-page: #f8fafc;
+  --ux-surface: #ffffff;
+  --ux-surface-2: #f1f5f9;
+  --ux-surface-3: #e2e8f0;
+  --ux-ink: #0f172a;
+  --ux-ink-2: #475569;
+  --ux-ink-3: #64748b;
+  --ux-line: rgba(15, 23, 42, 0.08);
+  --ux-line-2: rgba(15, 23, 42, 0.14);
+  --ux-accent-farmer: #059669;
+  --ux-accent-farmer-soft: rgba(5, 150, 105, 0.12);
+  --ux-accent-buyer: #0284c7;
+  --ux-accent-buyer-soft: rgba(2, 132, 199, 0.12);
+  --ux-mint: #10b981;
+  --ux-warn: #d97706;
+  --ux-danger: #ef4444;
+  --ux-shadow: rgba(15, 23, 42, 0.05);
+  --ux-shadow-strong: rgba(15, 23, 42, 0.12);
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ux-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+[data-theme="dark"] {
+  --ux-page: #0b0f17;
+  --ux-surface: #151d2a;
+  --ux-surface-2: #1e293b;
+  --ux-surface-3: #2d3b4f;
+  --ux-ink: #f8fafc;
+  --ux-ink-2: #cbd5e1;
+  --ux-ink-3: #94a3b8;
+  --ux-line: rgba(255, 255, 255, 0.08);
+  --ux-line-2: rgba(255, 255, 255, 0.15);
+  --ux-accent-farmer: #10b981;
+  --ux-accent-farmer-soft: rgba(16, 185, 129, 0.18);
+  --ux-accent-buyer: #38bdf8;
+  --ux-accent-buyer-soft: rgba(56, 189, 248, 0.18);
+  --ux-shadow: rgba(0, 0, 0, 0.3);
+  --ux-shadow-strong: rgba(0, 0, 0, 0.6);
+}
+
+/* ==============================================================================
+   1. LUCIAN #039 SLIDING PILL TABS (ĐIỀU HƯỚNG TAB HỒ SƠ)
+   ============================================================================== */
+.u039-nav {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--ux-surface-2);
+  box-shadow: inset 0 0 0 1px var(--ux-line);
+  max-width: 100%;
+}
+
+.u039-nav .u039-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 50%);
+  border-radius: 999px;
+  background: var(--ux-surface);
+  transform: translateX(var(--x, 4px));
+  box-shadow: 0 4px 14px -3px var(--ux-shadow-strong), 0 0 0 1px var(--ux-line);
+  transition: transform 0.42s var(--ux-spring), width 0.42s var(--ux-spring);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.u039-nav.theme-farmer .u039-pill {
+  background: var(--ux-accent-farmer);
+}
+.u039-nav.theme-buyer .u039-pill {
+  background: var(--ux-accent-buyer);
+}
+
+.u039-tab {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ux-ink-3);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s var(--ux-ease);
+  user-select: none;
+}
+
+.u039-tab:hover {
+  color: var(--ux-ink);
+}
+
+.u039-tab.active {
+  color: #ffffff !important;
+}
+
+.u039-tab:focus-visible {
+  outline: 2px solid var(--ux-accent-farmer);
+  outline-offset: 2px;
+}
+
+@media (max-width: 576px) {
+  .u039-nav {
+    width: 100%;
+    display: flex;
+  }
+  .u039-tab {
+    flex: 1;
+    padding: 0 6px;
+    font-size: 0.8rem;
+    height: 40px;
+    gap: 4px;
+    white-space: nowrap;
+    justify-content: center;
+  }
+}
+
+/* ==============================================================================
+   2. LUCIAN #047 PERIOD SEGMENTED CONTROL (BỘ LỌC THỜI GIAN)
+   ============================================================================== */
+.u047-seg-wrap {
+  max-width: 100%;
+  padding: 2px;
+}
+
+.u047-seg {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--ux-surface-2);
+  box-shadow: inset 0 0 0 1px var(--ux-line);
+}
+
+.u047-knob {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 75px);
+  border-radius: 10px;
+  background: var(--ux-surface);
+  transform: translateX(var(--x, 4px));
+  box-shadow: 0 3px 10px -2px var(--ux-shadow-strong), 0 0 0 1px var(--ux-line);
+  transition: transform 0.4s var(--ux-spring), width 0.4s var(--ux-spring);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.u047-opt {
+  position: relative;
+  z-index: 2;
+  height: 34px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--ux-ink-3);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s var(--ux-ease);
+  user-select: none;
+}
+
+.u047-opt:hover {
+  color: var(--ux-ink);
+}
+
+.u047-opt.active {
+  color: var(--ux-ink);
+}
+
+.u047-seg.theme-farmer .u047-opt.active {
+  color: var(--ux-accent-farmer);
+}
+.u047-seg.theme-buyer .u047-opt.active {
+  color: var(--ux-accent-buyer);
+}
+
+[data-theme="dark"] .u047-knob {
+  background: var(--ux-surface-3);
+}
+
+/* THÍCH ỨNG HOÀN TOÀN TRÊN MOBILE: 5 NÚT TỰ ĐỘNG DÀN ĐỀU 100% CHIỀU RỘNG, KHÔNG BỊ TRÀN HAY CẮT CHỮ */
+@media (max-width: 576px) {
+  .u047-seg-wrap {
+    width: 100%;
+    padding: 0;
+  }
+  .u047-seg {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 3px;
+    gap: 1px;
+    border-radius: 12px;
+  }
+  .u047-knob {
+    top: 3px;
+    bottom: 3px;
+    border-radius: 9px;
+  }
+  .u047-opt {
+    width: 100%;
+    height: 34px;
+    padding: 0 1px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .u047-opt {
+    font-size: 0.68rem;
+    letter-spacing: -0.035em;
+  }
+}
+
+/* ==============================================================================
+   3. LUCIAN #098 LIVE METRIC CARDS (THẺ CHỈ SỐ KPI CHUẨN UX)
+   ============================================================================== */
+.u098-card {
+  position: relative;
+  background: var(--ux-surface);
+  border-radius: 20px;
+  border: 1px solid var(--ux-line);
+  padding: 18px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px -4px var(--ux-shadow);
+  transition: transform 0.25s var(--ux-ease), box-shadow 0.25s var(--ux-ease), border-color 0.25s ease;
+}
+
+.u098-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -6px var(--ux-shadow-strong);
+  border-color: var(--ux-line-2);
+}
+
+.u098-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.u098-lbl {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ux-ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.u098-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ux-spring);
+}
+
+.u098-card:hover .u098-icon {
+  transform: scale(1.08);
+}
+
+.u098-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.u098-num {
+  font-size: 1.65rem;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ux-ink);
+}
+
+.u098-unit {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ux-ink-3);
+}
+
+.u098-sub {
+  font-size: 0.8rem;
+  color: var(--ux-ink-3);
+  font-weight: 500;
+  margin-top: auto;
+  line-height: 1.35;
+}
+
+.u098-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+@media (max-width: 576px) {
+  .u098-card {
+    padding: 14px 14px;
+    border-radius: 16px;
+  }
+  .u098-num {
+    font-size: 1.35rem;
+  }
+  .u098-lbl {
+    font-size: 0.74rem;
+  }
+  .u098-sub {
+    font-size: 0.74rem;
+  }
+  .u098-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+}
+
+/* ==============================================================================
+   4. LUCIAN #095 SURFACE & STAGGERED TOP LISTS
+   ============================================================================== */
+.u095-surface {
+  background: var(--ux-surface);
+  border-radius: 22px;
+  border: 1px solid var(--ux-line);
+  box-shadow: 0 6px 20px -6px var(--ux-shadow);
+  padding: 22px 24px;
+  height: 100%;
+}
+
+@media (max-width: 576px) {
+  .u095-surface {
+    padding: 16px 16px;
+    border-radius: 18px;
+  }
+}
+
+.u039-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.u039-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--ux-surface);
+  border: 1px solid var(--ux-line);
+  transition: all 0.2s var(--ux-ease);
+}
+
+.u039-row:hover {
+  background: var(--ux-surface-2);
+  transform: translateX(3px);
+  border-color: var(--ux-line-2);
+}
+
+.u039-rank {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.u039-rank.rank-1 {
+  background: #fef08a;
+  color: #854d0e;
+}
+.u039-rank.rank-2 {
+  background: #e2e8f0;
+  color: #334155;
+}
+.u039-rank.rank-3 {
+  background: #fed7aa;
+  color: #9a3412;
+}
+.u039-rank.rank-other {
+  background: var(--ux-surface-2);
+  color: var(--ux-ink-3);
+}
+
+[data-theme="dark"] .u039-rank.rank-1 {
+  background: rgba(234, 179, 8, 0.25);
+  color: #fef08a;
+}
+[data-theme="dark"] .u039-rank.rank-2 {
+  background: rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+}
+[data-theme="dark"] .u039-rank.rank-3 {
+  background: rgba(249, 115, 22, 0.25);
+  color: #fed7aa;
+}
+
+.u039-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ux-surface-2);
+  flex-shrink: 0;
+  border: 1px solid var(--ux-line);
+}
+.u039-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.u039-avatar-initial {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  background: var(--ux-accent-farmer-soft);
+  color: var(--ux-accent-farmer);
+}
+
+.u039-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--ux-surface-2);
+  color: var(--ux-ink);
+  border: 1px solid var(--ux-line);
+  transition: all 0.2s ease;
+}
+
+.u039-call-btn:hover {
+  background: var(--ux-accent-farmer);
+  color: #ffffff;
+  border-color: var(--ux-accent-farmer);
+  transform: translateY(-1px);
+}
+
+/* ==============================================================================
+   5. BẢNG QUẢN TRỊ ADMIN TRÊN MOBILE (CHUẨN UX THẺ GỌN SẠCH, KHÔNG TRÀN MÀN HÌNH)
+   ============================================================================== */
+.admin-card-item {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .admin-card-item {
+  background: var(--ux-surface);
+  border-color: var(--ux-line);
+}
+
+.admin-card-item:hover {
+  border-color: var(--ux-line-2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.admin-card-title {
+  font-size: 0.98rem;
+  font-weight: 750;
+  color: var(--ux-ink);
+  line-height: 1.3;
+}
+
+.admin-card-sub {
+  font-size: 0.78rem;
+  color: var(--ux-ink-3);
+  margin-top: 2px;
+}
+
+.admin-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.admin-card-actions {
+  display: flex;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ux-line);
+}
+
+.admin-card-actions .btn {
+  flex: 1;
+  text-align: center;
+  padding: 8px 4px !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+

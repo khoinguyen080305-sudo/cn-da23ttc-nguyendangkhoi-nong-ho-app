@@ -1,0 +1,1300 @@
+/* Lucian UX/UI Prompt #021 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#021 */
+/* ==============================================================================
+   LUCIAN UX/UI #021: DAY-NIGHT SKY SWITCH & DARK MODE THEME SYSTEM
+   Dự án: THÔNG VỤ - Kết Nối Nông Hộ & Tiêu Thụ Nông Sản Sạch
+   ============================================================================== */
+
+:root {
+  --ux-ease: cubic-bezier(.2,.8,.2,1);
+  --ux-spring: cubic-bezier(.34,1.45,.64,1);
+  --ux-accent: #059669;
+}
+
+/* ==============================================================================
+   1. NÚT BẬT TẮT SÁNG / TỐI LUCIAN UX/UI #021 (KÍCH CỠ GỌN GÀNG 62x28px)
+   ============================================================================== */
+/* 1. KHUNG CHỨA NÚT BẬT TẮT SÁNG / TỐI (KÍCH CỠ NHỎ GỌN TINH TẾ 48x22px - KHÔNG CHE ẢNH) */
+.nh-theme-toggle-slot {
+  display: inline-flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.ux.u021 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.u021-compact {
+  width: 48px;
+  height: 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u021-compact .u021-sw {
+  position: relative;
+  width: 48px;
+  height: 22px;
+  border: 0;
+  padding: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, #5DB7FF, #9ED8FF);
+  box-shadow: inset 0 1.5px 3px rgba(0,30,80,.25), inset 0 -1px 2px rgba(255,255,255,.4), 0 2px 6px -1px rgba(40,110,200,.5);
+  transition: box-shadow .7s var(--ux-ease);
+  cursor: pointer;
+}
+
+.u021-compact .u021-sw::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, #141A3A, #232C5C);
+  opacity: 0;
+  transition: opacity .7s var(--ux-ease);
+}
+
+.u021-compact .u021-sw:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+.u021.is-night .u021-sw::before {
+  opacity: 1;
+}
+
+.u021.is-night .u021-sw {
+  box-shadow: inset 0 1.5px 3px rgba(0,0,0,.6), inset 0 -1px 2px rgba(255,255,255,.08), 0 2px 6px -1px rgba(10,14,40,.8);
+}
+
+/* Quầng sáng mặt trời / mặt trăng (Halo) */
+.u021-compact .u021-halo {
+  position: absolute;
+  z-index: 1;
+  left: 11px;
+  top: 11px;
+  width: 0;
+  height: 0;
+  transition: transform .8s var(--ux-spring);
+}
+
+.u021-compact .u021-halo i {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+}
+.u021-compact .u021-halo i:nth-child(1) { width: 30px; height: 30px; margin: -15px; }
+.u021-compact .u021-halo i:nth-child(2) { width: 42px; height: 42px; margin: -21px; }
+.u021-compact .u021-halo i:nth-child(3) { width: 54px; height: 54px; margin: -27px; }
+
+.u021.is-night .u021-compact .u021-halo {
+  transform: translateX(26px);
+}
+
+/* Núm xoay: Mặt trời (Ngày) & Mặt trăng (Đêm) */
+.u021-compact .u021-knob {
+  position: absolute;
+  z-index: 3;
+  left: 2px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%, #FFF1A8, #FFD23F 45%, #F8A91E);
+  box-shadow: 0 1.5px 4px -1px rgba(140,80,0,.5), inset -1.5px -1.5px 3px rgba(200,110,0,.35), inset 1.5px 1.5px 3px rgba(255,255,255,.5);
+  transition: transform .8s var(--ux-spring);
+}
+
+.u021-compact .u021-moon {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #F4F6FB, #C9CFDD 60%, #A9B0C2);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform .7s var(--ux-ease), opacity .35s var(--ux-ease);
+}
+
+.u021-compact .u021-moon i {
+  position: absolute;
+  border-radius: 50%;
+  background: #A3AABC;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,.2);
+}
+.u021-compact .u021-moon i:nth-child(1) { left: 4px; top: 3.5px; width: 4.5px; height: 4.5px; }
+.u021-compact .u021-moon i:nth-child(2) { left: 10px; top: 9px; width: 3px; height: 3px; }
+.u021-compact .u021-moon i:nth-child(3) { left: 5px; top: 11px; width: 2px; height: 2px; }
+
+.u021.is-night .u021-compact .u021-knob {
+  transform: translateX(26px) rotate(200deg);
+}
+.u021.is-night .u021-compact .u021-moon {
+  opacity: 1;
+  transform: none;
+}
+
+/* Đám mây ngày */
+.u021-compact .u021-clouds {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  transition: transform .7s var(--ux-ease), opacity .5s var(--ux-ease);
+}
+.u021-compact .u021-clouds i {
+  position: absolute;
+  border-radius: 999px;
+  background: #fff;
+}
+.u021-compact .u021-clouds i:nth-child(1) {
+  right: -2px; bottom: -4px; width: 26px; height: 12px;
+  box-shadow: -10px 2px 0 -2px #fff, -18px 4px 0 -3px #fff;
+}
+.u021-compact .u021-clouds i:nth-child(2) {
+  right: 4px; bottom: -7px; width: 22px; height: 11px; background: #E3F1FF;
+  box-shadow: -10px 2px 0 -3px #E3F1FF; z-index: -1;
+}
+.u021.is-night .u021-compact .u021-clouds {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* Các vì sao đêm lấp lánh */
+.u021-compact .u021-stars {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: transform .7s var(--ux-ease), opacity .5s var(--ux-ease);
+}
+.u021-compact .u021-stars i {
+  position: absolute;
+  width: 1.6px;
+  height: 1.6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 2px #fff;
+  animation: u021-tw 2.4s ease-in-out infinite;
+}
+.u021.is-night .u021-compact .u021-stars {
+  opacity: 1;
+  transform: none;
+}
+@keyframes u021-tw { 50% { opacity: .25; transform: scale(.6); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .u021-sw, .u021-sw::before, .u021-halo, .u021-knob, .u021-moon, .u021-clouds, .u021-stars {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ==============================================================================
+   2. HỆ THỐNG BIẾN TOÀN CỤC CHẾ ĐỘ TỐI (DARK MODE TOKENS)
+   ============================================================================== */
+html[data-theme="dark"] {
+  /* Bảng màu chủ đạo nông nghiệp thích ứng nền tối */
+  --nh-forest: #34d399;           /* Xanh emerald sáng - Tiêu đề chính, dễ đọc vượt trội */
+  --nh-primary: #10b981;          /* Nút bấm, điểm nhấn xanh ngọc */
+  --nh-primary-hover: #059669;
+  --nh-primary-soft: rgba(5, 150, 105, 0.22);
+  --nh-primary-border: rgba(52, 211, 153, 0.4);
+
+  --nh-amber: #fbbf24;           /* Vàng hổ phách sáng */
+  --nh-amber-soft: rgba(245, 158, 11, 0.22);
+  --nh-amber-border: rgba(251, 191, 36, 0.4);
+
+  --nh-bg-app: #090d16;          /* Nền đen xanh thẫm sâu, không chói mắt */
+  --nh-surface: #0f172a;         /* Nền bề mặt Slate 900 cho thẻ, bảng, form */
+
+  --nh-border: #1e293b;          /* Viền Slate 800 sắc nét */
+  --nh-border-focus: #10b981;
+
+  --nh-text-head: #f8fafc;        /* Tiêu đề trắng sáng tinh khiết */
+  --nh-text-body: #f1f5f9;        /* Chữ nội dung Slate 100 tương phản cao */
+  --nh-text-muted: #94a3b8;       /* Chữ chú thích Slate 400 rõ ràng */
+
+  --bs-body-bg: #090d16;
+  --bs-body-color: #f1f5f9;
+}
+
+/* ==============================================================================
+   3. GHI ĐÈ INLINE STYLE TIÊU ĐỀ XANH ĐẬM (KHẮC PHỤC CHỮ BỊ CHÌM HOÀN TOÀN)
+   ============================================================================== */
+html[data-theme="dark"] [style*="color: #064e3b"],
+html[data-theme="dark"] [style*="color:#064e3b"],
+html[data-theme="dark"] [style*="color: #047857"],
+html[data-theme="dark"] [style*="color:#047857"],
+html[data-theme="dark"] [style*="color: #065f46"],
+html[data-theme="dark"] [style*="color:#065f46"] {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] [style*="color: #0c4a6e"],
+html[data-theme="dark"] [style*="color:#0c4a6e"] {
+  color: #38bdf8 !important; /* Xanh dương sáng rõ nét cho hồ sơ thương lái */
+}
+
+html[data-theme="dark"] [style*="color: #0f172a"],
+html[data-theme="dark"] [style*="color: #1e293b"],
+html[data-theme="dark"] [style*="color: #334155"] {
+  color: #f8fafc !important;
+}
+
+/* Nền khối form có inline style xanh non/vàng */
+html[data-theme="dark"] [style*="background: #f0fdf4"],
+html[data-theme="dark"] [style*="background:#f0fdf4"],
+html[data-theme="dark"] [style*="background: #ecfdf5"],
+html[data-theme="dark"] [style*="background:#ecfdf5"] {
+  background: rgba(6, 78, 59, 0.28) !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+}
+
+html[data-theme="dark"] [style*="background: #fef2f2"],
+html[data-theme="dark"] [style*="background:#fef2f2"] {
+  background: rgba(220, 38, 38, 0.18) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+html[data-theme="dark"] [style*="background: #e0f2fe"],
+html[data-theme="dark"] [style*="background:#e0f2fe"],
+html[data-theme="dark"] [style*="background: #f0f9ff"],
+html[data-theme="dark"] [style*="background:#f0f9ff"] {
+  background: rgba(14, 116, 144, 0.22) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+/* ==============================================================================
+   4. NỀN & CHỮ CƠ BẢN TOÀN HỆ THỐNG
+   ============================================================================== */
+html[data-theme="dark"] body {
+  background-color: #090d16 !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] .h1,
+html[data-theme="dark"] .h2,
+html[data-theme="dark"] .h3,
+html[data-theme="dark"] .h4,
+html[data-theme="dark"] .h5,
+html[data-theme="dark"] .h6 {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .text-dark {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] strong.text-dark,
+html[data-theme="dark"] b.text-dark {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .text-muted {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .text-secondary {
+  color: #cbd5e1 !important;
+}
+
+/* Khối nền trắng & xám nhạt toàn hệ thống */
+html[data-theme="dark"] .bg-white {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .bg-light {
+  background-color: #162032 !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .border,
+html[data-theme="dark"] .border-top,
+html[data-theme="dark"] .border-bottom,
+html[data-theme="dark"] .border-start,
+html[data-theme="dark"] .border-end {
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .border-success-subtle {
+  border-color: rgba(52, 211, 153, 0.3) !important;
+}
+
+html[data-theme="dark"] .border-warning-subtle {
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+html[data-theme="dark"] .border-primary-subtle {
+  border-color: rgba(56, 189, 248, 0.3) !important;
+}
+
+html[data-theme="dark"] .shadow-sm,
+html[data-theme="dark"] .shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ==============================================================================
+   5. HEADER & ĐIỀU HƯỚNG TÀI KHOẢN
+   ============================================================================== */
+html[data-theme="dark"] .nh-header {
+  background-color: #0d1527 !important;
+  border-bottom: 1px solid #1e293b !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Nút tài khoản header (khắc phục hoàn toàn lỗi chữ trắng trên nền trắng) */
+html[data-theme="dark"] .nh-header .dropdown > button.btn-light,
+html[data-theme="dark"] .nh-header .btn-light {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .nh-header .btn-light:hover,
+html[data-theme="dark"] .nh-header .btn-light:focus,
+html[data-theme="dark"] .nh-header .btn-light.show {
+  background-color: #273549 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-header .btn-light span {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-header .btn-light i.bi-chevron-down {
+  color: #94a3b8 !important;
+}
+
+/* Dropdown Menu tài khoản */
+html[data-theme="dark"] .dropdown-menu {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-header {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-header strong {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-divider {
+  border-top-color: #334155 !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-item {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-item:hover,
+html[data-theme="dark"] .dropdown-menu .dropdown-item:focus {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .dropdown-menu .dropdown-item i {
+  color: #34d399 !important;
+}
+
+/* Nút giỏ hàng Header */
+html[data-theme="dark"] .btn-cart-header {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .btn-cart-header:hover {
+  background-color: #273549 !important;
+  color: #ffffff !important;
+}
+
+/* ==============================================================================
+   6. BANNER HERO TRANG CHỦ: GIỮ NGUYÊN TẤM ẢNH HERO_BANNER.PNG CẢ SÁNG LẪN TỐI
+   ============================================================================== */
+html[data-theme="dark"] .nh-hero-card {
+  background-color: #022b1c !important;
+  background-image: url('../images/hero_banner.png') !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: right center !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Lớp phủ chuyển sắc thông minh: Giữ rõ chữ bên trái, để lộ giỏ trái cây sáng rõ bên phải */
+html[data-theme="dark"] .nh-hero-card::after {
+  background: linear-gradient(
+    90deg, 
+    rgba(2, 35, 23, 0.76) 0%, 
+    rgba(2, 35, 23, 0.46) 45%, 
+    rgba(2, 35, 23, 0.10) 75%, 
+    transparent 100%
+  ) !important;
+}
+
+html[data-theme="dark"] .nh-hero-tag {
+  background: rgba(6, 78, 59, 0.95) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(52, 211, 153, 0.35) !important;
+}
+
+html[data-theme="dark"] .nh-hero-tag i {
+  color: #10b981 !important;
+}
+
+html[data-theme="dark"] .nh-btn-hero-secondary {
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+html[data-theme="dark"] .nh-btn-hero-secondary:hover {
+  background: rgba(15, 23, 42, 0.95) !important;
+  color: #34d399 !important;
+}
+
+@media (max-width: 767.98px) {
+  html[data-theme="dark"] .nh-hero-card {
+    padding: 20px 18px 18px !important;
+    border-radius: 20px !important;
+    background-position: 85% center !important;
+  }
+  html[data-theme="dark"] .nh-hero-card::after {
+    background: linear-gradient(
+      95deg, 
+      rgba(2, 35, 23, 0.80) 0%, 
+      rgba(2, 35, 23, 0.50) 46%, 
+      rgba(2, 40, 26, 0.12) 75%, 
+      transparent 100%
+    ) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  html[data-theme="dark"] .nh-hero-card {
+    padding: 16px 14px 15px !important;
+    border-radius: 18px !important;
+  }
+}
+
+/* ==============================================================================
+   7. BỘ LỌC TÌM KIẾM, CHIPS DANH MỤC & PHÂN TRANG (TRANG CHỦ)
+   ============================================================================== */
+html[data-theme="dark"] .nh-filter-card {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+html[data-theme="dark"] .nh-search-box-integrated {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-search-box-integrated .nh-search-icon {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-search-input {
+  background-color: transparent !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-search-input::placeholder {
+  color: #64748b !important;
+}
+
+html[data-theme="dark"] .nh-btn-search-submit {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-btn-search-submit:hover {
+  background-color: #047857 !important;
+}
+
+html[data-theme="dark"] .nh-btn-filter-toggle {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-btn-filter-toggle:hover,
+html[data-theme="dark"] .nh-btn-filter-toggle.active {
+  background-color: #273549 !important;
+  border-color: #059669 !important;
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-filter-select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-filter-select option {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-filter-col-label {
+  color: #94a3b8 !important;
+}
+
+/* Dãy danh mục cuộn / kéo ngang (Chips) */
+html[data-theme="dark"] .nh-cat-pill {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-cat-pill .nh-cat-count {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-cat-pill:hover {
+  background-color: #273549 !important;
+  color: #ffffff !important;
+  border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .nh-cat-pill.active {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+  border-color: #10b981 !important;
+}
+
+html[data-theme="dark"] .nh-cat-pill.active .nh-cat-count {
+  color: #a7f3d0 !important;
+}
+
+html[data-theme="dark"] .nh-cat-selector-bar {
+  border-top-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-btn {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-btn:hover {
+  background-color: #273549 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-btn.active {
+  background-color: #059669 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-menu {
+  background-color: #151d2a !important;
+  border-color: #334155 !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-header {
+  background-color: #0f172a !important;
+  border-bottom-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-title {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-cat-dropdown-hint {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-cat-item {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-cat-item:hover {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-cat-item.active {
+  background-color: rgba(16, 185, 129, 0.16) !important;
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-cat-item-icon {
+  background-color: #1e293b !important;
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-cat-item.active .nh-cat-item-icon {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-cat-item-count {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-cat-item.active .nh-cat-item-count {
+  background-color: rgba(16, 185, 129, 0.25) !important;
+  color: #6ee7b7 !important;
+}
+
+/* Thẻ sản phẩm Trang Chủ */
+html[data-theme="dark"] .nh-card-product {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+html[data-theme="dark"] .nh-card-product:hover {
+  border-color: #059669 !important;
+  box-shadow: 0 10px 28px rgba(5, 150, 105, 0.25) !important;
+}
+
+html[data-theme="dark"] .nh-card-thumb-wrap {
+  background-color: #162032 !important;
+}
+
+/* Ảnh placeholder mặc định trong Dark Mode: Tự động chuyển tông màu đêm dịu mắt, hòa quyện với thẻ sản phẩm */
+html[data-theme="dark"] img.nh-card-thumb[src*="nong_san_mac_dinh.svg"],
+html[data-theme="dark"] img[src*="nong_san_mac_dinh.svg"] {
+  filter: invert(0.88) hue-rotate(180deg) brightness(0.82) contrast(1.15);
+}
+
+html[data-theme="dark"] .nh-card-title a,
+html[data-theme="dark"] .nh-product-title-link {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-card-title a:hover,
+html[data-theme="dark"] .nh-product-title-link:hover {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-card-farm {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-card-farm span {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-card-location b span {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-price-val {
+  color: #10b981 !important;
+}
+
+html[data-theme="dark"] .nh-price-unit {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-btn-card-buy {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-btn-card-buy:hover {
+  background-color: #047857 !important;
+}
+
+/* Phân trang (Pagination) */
+html[data-theme="dark"] .nh-page-item .nh-page-link,
+html[data-theme="dark"] .pagination .page-link {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-page-item.active .nh-page-link,
+html[data-theme="dark"] .pagination .page-item.active .page-link {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-page-item.disabled .nh-page-link,
+html[data-theme="dark"] .pagination .page-item.disabled .page-link {
+  background-color: #162032 !important;
+  color: #64748b !important;
+  border-color: #1e293b !important;
+}
+
+/* ==============================================================================
+   8. TRANG CHI TIẾT SẢN PHẨM (chi_tiet.php)
+   ============================================================================== */
+html[data-theme="dark"] .nh-detail-card-unified {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-theme="dark"] .nh-detail-img-box {
+  background: #090d16 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-detail-price-box {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.35) 0%, #162032 100%) !important;
+  border-color: rgba(52, 211, 153, 0.35) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .nh-detail-price-val {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-detail-stock-val {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .border-end-sm {
+  border-color: rgba(52, 211, 153, 0.25) !important;
+}
+
+/* Khung Stepper số lượng mua */
+html[data-theme="dark"] .nh-qty-control {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-qty-btn {
+  background: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-qty-btn:hover {
+  background: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-qty-input {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+/* Khung nhập giá đề xuất thương lượng */
+html[data-theme="dark"] .nh-price-input-group {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-price-field {
+  color: #34d399 !important;
+  background: transparent !important;
+}
+
+html[data-theme="dark"] .nh-price-addon {
+  background: #273549 !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+/* Thẻ thông tin Nhà vườn / Nông hộ */
+html[data-theme="dark"] .nh-farmer-compact {
+  background: #162032 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-farmer-compact:hover {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* Các hộp trạng thái vai trò */
+html[data-theme="dark"] .nh-role-box-nongho,
+html[data-theme="dark"] .nh-role-box-guest {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.35) 0%, #162032 100%) !important;
+  border-color: rgba(52, 211, 153, 0.35) !important;
+}
+
+html[data-theme="dark"] .nh-role-box-admin {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, #162032 100%) !important;
+  border-color: rgba(96, 165, 250, 0.35) !important;
+}
+
+html[data-theme="dark"] .nh-harvest-notice {
+  background: rgba(180, 83, 9, 0.25) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #fbbf24 !important;
+}
+
+html[data-theme="dark"] .nh-trust-guarantee-bar {
+  background: #162032 !important;
+  border-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+/* ==============================================================================
+   9. QUẢN LÝ VÀ FORM NÔNG SẢN (san_pham.php & form_san_pham.php)
+   ============================================================================== */
+html[data-theme="dark"] .nh-sp-card {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-sp-card:hover {
+  border-color: #10b981 !important;
+  box-shadow: 0 12px 24px -8px rgba(5, 150, 105, 0.3) !important;
+}
+
+html[data-theme="dark"] .nh-sp-card-hidden {
+  background: #090d16 !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-sp-card-img-wrap {
+  background-color: #162032 !important;
+}
+
+html[data-theme="dark"] .nh-sp-stats-box {
+  background-color: #162032 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-filter-btn {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  border-color: transparent !important;
+}
+
+html[data-theme="dark"] .nh-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-filter-btn.active {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+html[data-theme="dark"] .nh-filter-btn .nh-filter-num {
+  background: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-filter-btn.active .nh-filter-num {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* Badge xem trước tiền Việt Nam */
+html[data-theme="dark"] .currency-preview-badge {
+  background: rgba(6, 78, 59, 0.4) !important;
+  color: #34d399 !important;
+  border: 1.5px solid rgba(52, 211, 153, 0.4) !important;
+}
+
+/* ==============================================================================
+   10. QUẢN LÝ ĐƠN HÀNG & TABS PHÂN ĐOẠN (don_hang/danh_sach.php)
+   ============================================================================== */
+html[data-theme="dark"] .nh-order-tabs-box {
+  background: #162032 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-order-tab-item {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-order-tab-item:hover {
+  color: #34d399 !important;
+  background: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-order-tab-item.active {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-order-tab-item.active .badge {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* ==============================================================================
+   11. BẢNG BIỂU & DỮ LIỆU (TABLES)
+   ============================================================================== */
+html[data-theme="dark"] .table {
+  --bs-table-bg: transparent !important;
+  --bs-table-color: #f1f5f9 !important;
+  --bs-table-hover-bg: rgba(30, 41, 59, 0.6) !important;
+  --bs-table-hover-color: #ffffff !important;
+  --bs-table-border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: #f1f5f9 !important;
+  border-bottom-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .table thead,
+html[data-theme="dark"] .table-light,
+html[data-theme="dark"] thead.table-light {
+  background-color: #162032 !important;
+  color: #94a3b8 !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] thead.table-light th,
+html[data-theme="dark"] thead th {
+  background-color: #162032 !important;
+  color: #94a3b8 !important;
+  border-bottom: 2px solid #1e293b !important;
+}
+
+html[data-theme="dark"] .table tbody tr:hover td {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* ==============================================================================
+   12. FORM NHẬP LIỆU & Ô CHỌN (FORM CONTROLS)
+   ============================================================================== */
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select {
+  background-color: #162032 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .form-control:focus,
+html[data-theme="dark"] .form-select:focus {
+  background-color: #1e293b !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+html[data-theme="dark"] .form-control::placeholder {
+  color: #64748b !important;
+}
+
+html[data-theme="dark"] .form-select option {
+  background-color: #162032 !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .input-group-text {
+  background-color: #273549 !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .form-label {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .form-text {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .form-check-label {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .form-check-input {
+  background-color: #162032 !important;
+  border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .form-check-input:checked {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+}
+
+/* ==============================================================================
+   13. HỘP THOẠI MODAL (MODALS)
+   ============================================================================== */
+html[data-theme="dark"] .modal-content {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+}
+
+html[data-theme="dark"] .modal-header {
+  background-color: #162032 !important;
+  border-bottom: 1px solid #1e293b !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .modal-title {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .modal-footer {
+  background-color: #162032 !important;
+  border-top: 1px solid #1e293b !important;
+}
+
+html[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%) !important;
+}
+
+/* ==============================================================================
+   14. HUY HIỆU & TEM TRẠNG THÁI (BADGES & PILLS)
+   ============================================================================== */
+html[data-theme="dark"] .badge.bg-light.text-dark,
+html[data-theme="dark"] .badge.bg-light.text-secondary,
+html[data-theme="dark"] .badge.bg-white.text-dark {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+}
+
+html[data-theme="dark"] .badge.bg-success-subtle {
+  background-color: rgba(5, 150, 105, 0.22) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(52, 211, 153, 0.35) !important;
+}
+
+html[data-theme="dark"] .badge.bg-warning-subtle {
+  background-color: rgba(217, 119, 6, 0.22) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(251, 191, 36, 0.35) !important;
+}
+
+html[data-theme="dark"] .badge.bg-primary-subtle {
+  background-color: rgba(2, 132, 199, 0.22) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+}
+
+html[data-theme="dark"] .badge.bg-danger-subtle {
+  background-color: rgba(220, 38, 38, 0.22) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248, 113, 113, 0.35) !important;
+}
+
+/* Thẻ số điện thoại nổi bật (Phone Badges) */
+html[data-theme="dark"] .nh-phone-badge {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+html[data-theme="dark"] .nh-phone-badge i {
+  color: #f59e0b !important;
+}
+
+html[data-theme="dark"] .nh-phone-badge-green {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+html[data-theme="dark"] .nh-phone-badge-green i {
+  color: #10b981 !important;
+}
+
+/* ==============================================================================
+   15. KHỐI GHÉP NỐI THÔNG MINH (%) & THỊ TRƯỜNG (nhu_cau_thi_truong.php)
+   ============================================================================== */
+html[data-theme="dark"] .nh-matching-card {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .nh-matching-card .badge.bg-white {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+/* ==============================================================================
+   16. HỆ THỐNG NÚT BẤM (BUTTONS)
+   ============================================================================== */
+html[data-theme="dark"] .btn-light {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .btn-light:hover {
+  background-color: #273549 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .btn-outline-secondary {
+  color: #cbd5e1 !important;
+  border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .btn-outline-success {
+  color: #34d399 !important;
+  border-color: #10b981 !important;
+}
+
+html[data-theme="dark"] .btn-outline-success:hover {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .btn-clean-outline {
+  color: #34d399 !important;
+  border-color: #34d399 !important;
+}
+
+html[data-theme="dark"] .btn-clean-outline:hover {
+  background-color: rgba(5, 150, 105, 0.22) !important;
+  color: #6ee7b7 !important;
+}
+
+/* ==============================================================================
+   17. KHUNG XÁC THỰC AUTH (ĐĂNG NHẬP, ĐĂNG KÝ, ĐỔI MK)
+   ============================================================================== */
+html[data-theme="dark"] .nh-auth-wrapper {
+  background-color: #090d16 !important;
+}
+
+html[data-theme="dark"] .nh-auth-card {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-theme="dark"] .nh-auth-title {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-auth-label {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .nh-auth-input {
+  background-color: #162032 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-auth-input:focus {
+  background-color: #1e293b !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+/* ==============================================================================
+   18. THÔNG BÁO TOAST (TOAST NOTIFICATIONS) & ALERTS
+   ============================================================================== */
+html[data-theme="dark"] .nh-toast,
+html[data-theme="dark"] .nh-toast-slim {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-theme="dark"] .nh-toast-title {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .nh-toast-desc {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-toast-close {
+  color: #64748b !important;
+}
+
+html[data-theme="dark"] .nh-toast-close:hover {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .alert-danger {
+  background-color: rgba(220, 38, 38, 0.16) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+  color: #fca5a5 !important;
+}
+
+html[data-theme="dark"] .alert-warning {
+  background-color: rgba(217, 119, 6, 0.16) !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  color: #fde047 !important;
+}
+
+html[data-theme="dark"] .alert-success {
+  background-color: rgba(5, 150, 105, 0.16) !important;
+  border-color: rgba(52, 211, 153, 0.35) !important;
+  color: #6ee7b7 !important;
+}
+
+html[data-theme="dark"] .alert-info {
+  background-color: rgba(2, 132, 199, 0.16) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  color: #7dd3fc !important;
+}
+
+/* ==============================================================================
+   19. FOOTER & THANH ĐIỀU HƯỚNG DƯỚI ĐÁY DI ĐỘNG (MOBILE BOTTOM NAV)
+   ============================================================================== */
+html[data-theme="dark"] .nh-footer-simple {
+  background-color: #070a12 !important;
+  border-top-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-footer-simple .text-muted {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-simple-hotline {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .nh-simple-hotline strong {
+  color: #34d399 !important;
+}
+
+html[data-theme="dark"] .nh-mobile-bottom-nav {
+  background-color: #0d1322 !important;
+  border-top-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .nh-mobile-nav-item {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .nh-mobile-nav-item.active {
+  color: #10b981 !important;
+}

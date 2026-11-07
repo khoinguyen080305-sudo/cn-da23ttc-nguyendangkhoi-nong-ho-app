@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <!-- Nền trung tính dịu nhẹ, sạch sẽ (Clean Neutral Canvas) -->
+    <linearGradient id="phBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#edf2f0" />
+    </linearGradient>
+
+    <!-- Màu Núi Lớn (Tông Xám Ngọc Muted - Placeholder Chuẩn UI) -->
+    <linearGradient id="phMtRightLit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93a89c" />
+      <stop offset="100%" stop-color="#7a9284" />
+    </linearGradient>
+    <linearGradient id="phMtRightShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a7364" />
+      <stop offset="100%" stop-color="#465c4f" />
+    </linearGradient>
+
+    <!-- Màu Núi Nhỏ Tiền Cảnh -->
+    <linearGradient id="phMtLeftLit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a8bcaf" />
+      <stop offset="100%" stop-color="#8fa496" />
+    </linearGradient>
+    <linearGradient id="phMtLeftShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#698273" />
+      <stop offset="100%" stop-color="#51695b" />
+    </linearGradient>
+
+    <!-- Mặt trời Placeholder Trầm Mát -->
+    <linearGradient id="phSunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cbd8d0" />
+      <stop offset="100%" stop-color="#adc1b4" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. NỀN TOÀN BỘ BỨC ẢNH: TRÀN VIỀN, THỐNG NHẤT, KHÔNG KHUNG ĐEN -->
+  <rect width="400" height="400" fill="url(#phBgGrad)" />
+
+  <!-- 2. BIỂU TƯỢNG HÌNH ẢNH MẶC ĐỊNH (2 NGỌN NÚI & MẶT TRỜI ĐÚNG MẪU) -->
+  <g transform="translate(0, -10)">
+    <!-- Mặt Trời Muted (Góc Trên Phải) -->
+    <circle cx="270" cy="115" r="21" fill="url(#phSunGrad)" />
+
+    <!-- Núi Lớn Hậu Cảnh (Bên Phải) -->
+    <polygon points="170,240 228,110 216,240" fill="url(#phMtRightLit)" />
+    <polygon points="228,110 320,240 216,240" fill="url(#phMtRightShadow)" />
+    <line x1="228" y1="110" x2="216" y2="240" stroke="#b0c4b8" stroke-width="1.2" opacity="0.5" />
+
+    <!-- Núi Nhỏ Tiền Cảnh (Bên Trái Gối Lên) -->
+    <polygon points="80,240 150,150 174,240" fill="url(#phMtLeftLit)" />
+    <polygon points="150,150 210,240 174,240" fill="url(#phMtLeftShadow)" />
+    <line x1="150" y1="150" x2="174" y2="240" stroke="#c5d8cc" stroke-width="1.2" opacity="0.6" />
+
+    <!-- Đường Chân Đế Baseline Tinh Gọn -->
+    <line x1="72" y1="240" x2="328" y2="240" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- 3. THÔNG BÁO RÕ RÀNG: ĐÂY LÀ ẢNH CHƯA UPLOAD (KHÔNG NHẦM VỚI SẢN PHẨM) -->
+  <g transform="translate(0, -5)">
+    <!-- Nhãn chính: To rõ, thanh lịch -->
+    <text x="200" y="288" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18.5" font-weight="800" fill="#475569" letter-spacing="0.3px">
+      Chưa có hình ảnh
+    </text>
+  </g>
+</svg>

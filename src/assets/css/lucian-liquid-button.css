@@ -1,0 +1,321 @@
+/* Lucian UX/UI Prompt #001 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#001 */
+/* ==============================================================================
+   LUCIAN UX/UI #001: REFINED INTERACTIVE BUTTON (TINH GỌN, MÀU SẮC ĐỒNG NHẤT, GIỮ TRỌN HIỆU ỨNG)
+   - Tông màu: Xanh ngọc lục bảo #059669 đồng nhất 100%, không loang lổ, không chói mắt
+   - Thiết kế tinh giản: Bỏ vệt bóng kính lóa và đốm mờ, giữ lại tương tác hover, sheen, loading & success morph
+   - Kích thước gọn gàng: Chiều cao chuẩn 44px (42px trên mobile), tỷ lệ cân xứng hoàn hảo với form
+   ============================================================================== */
+
+.u001 {
+  position: relative;
+  width: 100%;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  margin: 6px 0 8px;
+}
+
+/* Ẩn các đốm mờ loang lổ phía sau để giao diện tinh gọn, đồng nhất */
+.u001-blobs {
+  display: none;
+}
+
+/* Hiệu ứng hút nam châm theo chuột (Magnetic Pull) */
+.u001-mag {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform .6s cubic-bezier(.34, 1.45, .64, 1);
+}
+
+/* Khung giữ nút cố định vững chãi (bỏ bập bênh trôi nổi) */
+.u001-float {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* NÚT BẤM CHÍNH - MÀU SẮC ĐỒNG NHẤT, GỌN GÀNG, HIỆN ĐẠI */
+.u001-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  color: #ffffff !important;
+  font-size: 0.96rem;
+  font-weight: 700;
+  background: #059669;
+  box-shadow: 0 4px 14px -1px rgba(5, 150, 105, 0.35);
+  transition: width .5s cubic-bezier(.2, .8, .2, 1), transform .3s cubic-bezier(.34, 1.45, .64, 1), box-shadow .3s ease, background-color .25s ease;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.u001-btn:hover {
+  background: #047857;
+  box-shadow: 0 6px 18px -2px rgba(5, 150, 105, 0.45);
+}
+
+.u001-btn:active {
+  transform: scale(0.98);
+}
+
+.u001-btn:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 3px;
+}
+
+/* Bỏ ánh phản chiếu mặt kính trắng (Crescent Glare) để màu sắc đồng nhất */
+.u001-btn::before {
+  display: none;
+}
+
+/* Quầng sáng tương tác mềm mại di chuyển theo con trỏ chuột */
+.u001-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+  background: radial-gradient(130px 65px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .16), transparent 75%);
+}
+
+.u001-btn:hover::after {
+  opacity: 1;
+}
+
+/* Vệt sáng quét ngang mặt nút khi hover (Interactive Sheen) */
+.u001-sheen {
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: 0;
+  width: 32%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .25) 50%, transparent);
+  transform: translateX(-150%) skewX(-12deg);
+  transition: transform 0.9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.u001-btn:hover .u001-sheen {
+  transform: translateX(350%) skewX(-12deg);
+}
+
+/* CHỮ NHÃN NÚT - RÕ RÀNG, SẮC NÉT, KHÔNG BÓNG MỜ */
+.u001-txt,
+.u001-done {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #ffffff !important;
+  text-shadow: none;
+  transition: opacity .3s ease, transform .4s cubic-bezier(.2, .8, .2, 1), filter .3s ease;
+}
+
+.u001-done {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+  color: #ffffff !important;
+}
+
+.u001-done b {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: #059669;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+}
+
+.u001-done svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.u001-done path {
+  stroke-dasharray: 18;
+  stroke-dashoffset: 18;
+  transition: stroke-dashoffset .5s cubic-bezier(.2, .8, .2, 1) .25s;
+}
+
+/* Vòng xoay tiến trình loading (Trắng sáng tinh tế) */
+.u001-spin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  opacity: 0;
+  transform: scale(.5);
+  transition: opacity .3s ease, transform .5s cubic-bezier(.34, 1.45, .64, 1);
+  color: #ffffff;
+}
+
+.u001-spin svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  animation: u001-rot 1s linear infinite;
+}
+
+.u001-spin circle {
+  stroke-dasharray: 1 56;
+  animation: u001-arc 1.4s ease-in-out infinite;
+}
+
+@keyframes u001-rot {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes u001-arc {
+  0%, 100% { stroke-dasharray: 1 56; }
+  50% { stroke-dasharray: 38 19; }
+}
+
+/* ==============================================================================
+   CÁC TRẠNG THÁI CHUYỂN ĐỔI (STATE TRANSITIONS)
+   ============================================================================== */
+
+/* 1. TRẠNG THÁI LOADING (CO TRÒN LIQUID NHỎ GỌN) */
+.u001[data-state="load"] .u001-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  cursor: progress;
+  background: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+}
+
+.u001[data-state="load"] .u001-txt {
+  opacity: 0;
+  transform: translateY(-10px);
+  filter: blur(4px);
+}
+
+.u001[data-state="load"] .u001-spin {
+  opacity: 1;
+  transform: none;
+}
+
+/* 2. TRẠNG THÁI THÀNH CÔNG (BUNG MỞ KÈM TÍCH XANH & PHÁT QUANG TINH TẾ) */
+.u001[data-state="ok"] .u001-btn {
+  width: 100%;
+  max-width: 100%;
+  height: 44px;
+  background: #059669;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
+}
+
+.u001[data-state="ok"] .u001-txt {
+  opacity: 0;
+  transform: translateY(-10px);
+  filter: blur(4px);
+}
+
+.u001[data-state="ok"] .u001-done {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.u001[data-state="ok"] .u001-done path {
+  stroke-dashoffset: 0;
+}
+
+/* Hỗ trợ Screen Reader */
+.u001-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ==============================================================================
+   GIAO DIỆN DARK MODE
+   ============================================================================== */
+[data-theme="dark"] .u001-btn {
+  background: #059669;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 14px -1px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .u001-btn:hover {
+  background: #10b981;
+  box-shadow: 0 6px 18px -2px rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="dark"] .u001[data-state="load"] .u001-btn {
+  background: #047857;
+}
+
+[data-theme="dark"] .u001[data-state="ok"] .u001-btn {
+  background: #10b981;
+}
+
+/* ==============================================================================
+   TỐI ƯU GIAO DIỆN TRÊN MOBILE
+   ============================================================================== */
+@media (max-width: 575.98px) {
+  .u001 {
+    height: 42px;
+    margin: 4px 0 6px;
+  }
+  .u001-btn {
+    height: 42px;
+    font-size: 0.92rem;
+  }
+  .u001[data-state="load"] .u001-btn {
+    width: 42px;
+    height: 42px;
+  }
+  .u001-txt,
+  .u001-done {
+    font-size: 0.92rem;
+  }
+  .u001-spin {
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+  }
+  .u001-done b {
+    width: 22px;
+    height: 22px;
+  }
+  .u001-done svg {
+    width: 12px;
+    height: 12px;
+  }
+}

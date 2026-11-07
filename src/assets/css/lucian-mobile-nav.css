@@ -1,0 +1,253 @@
+/* Lucian UX/UI Prompt #041 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#041 */
+/* ==============================================================================
+   LUCIAN UX/UI #041: NOTCHED BOTTOM TAB BAR (MOBILE DOCK NAVIGATION)
+   Dự án: THÔNG VỤ - Kết Nối Nông Hộ & Tiêu Thụ Nông Sản Mùa Vụ
+   ============================================================================== */
+
+@media (max-width: 767.98px) {
+  body.has-mobile-dock,
+  body:has(#nhMobileDock) {
+    padding-bottom: 96px !important; /* Dành khoảng trống thoáng đãng cho floating dock khi đã đăng nhập */
+  }
+}
+
+/* ==============================================================================
+   1. KHUNG CHÍNH MOBILE BOTTOM DOCK (LUCIAN #041)
+   ============================================================================== */
+.nh-mobile-dock {
+  --x: 50%;
+  position: fixed;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  left: 12px;
+  right: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+  height: 94px;
+  display: flex;
+  align-items: flex-end;
+  z-index: 1030;
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease;
+  will-change: transform, opacity;
+}
+
+/* ẨN THANH ĐIỀU HƯỚNG KHI LƯỚT XEM NỘI DUNG (CUỘN XUỐNG / VUỐT LÊN) */
+.nh-mobile-dock.is-hidden {
+  transform: translateY(135%);
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+/* Bóng đổ mềm bên dưới thanh điều hướng (Shadow Layer) */
+.nh-mobile-dock .u041-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68px;
+  border-radius: 26px;
+  box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.18), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  pointer-events: none;
+}
+
+/* Thân thanh điều hướng với vết lõm vòm cong (Notched Mask Bar) */
+.nh-mobile-dock .u041-bar {
+  position: relative;
+  width: 100%;
+  height: 68px;
+  border-radius: 26px;
+  background: #ffffff;
+  -webkit-mask: radial-gradient(circle 36px at var(--x) -3px, transparent 96%, #000 100%);
+  mask: radial-gradient(circle 36px at var(--x) -3px, transparent 96%, #000 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  pointer-events: auto;
+}
+
+/* Vòng tròn bong bóng nổi bật bay theo tab đang chọn (Floating Spring Bubble) */
+.nh-mobile-dock .u041-bub {
+  position: absolute;
+  left: var(--x);
+  bottom: 38px;
+  width: 54px;
+  height: 54px;
+  margin-left: -27px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 12px 24px -6px rgba(5, 150, 105, 0.55), 0 4px 10px -2px rgba(5, 150, 105, 0.35);
+  pointer-events: none;
+  z-index: 2;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Danh sách các tab điều hướng */
+.nh-mobile-dock .u041-tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68px;
+  display: flex;
+  margin: 0;
+  padding: 0 6px;
+  list-style: none;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.nh-mobile-dock .u041-tabs > li {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+}
+
+/* Nút Tab liên kết */
+.nh-mobile-dock .u041-tab {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #64748b;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.nh-mobile-dock .u041-tab:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: -4px;
+  border-radius: 18px;
+}
+
+/* Icon của từng tab */
+.nh-mobile-dock .u041-ic {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  color: #64748b;
+  transition: transform 0.55s cubic-bezier(0.34, 1.45, 0.64, 1), color 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.nh-mobile-dock .u041-ic svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Nhãn chữ bên dưới tab đang hoạt động */
+.nh-mobile-dock .u041-lab {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  color: #059669;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+  pointer-events: none;
+}
+
+/* TRẠNG THÁI ACTIVE (TAB ĐƯỢC CHỌN) */
+.nh-mobile-dock .u041-tab[aria-selected="true"] .u041-ic {
+  transform: translateY(-37px);
+  color: #ffffff !important;
+  z-index: 4;
+}
+
+.nh-mobile-dock .u041-tab[aria-selected="true"] .u041-ic svg {
+  stroke-width: 2.3;
+}
+
+.nh-mobile-dock .u041-tab[aria-selected="true"] .u041-lab {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BADGE THÔNG BÁO / ĐƠN HÀNG */
+.nh-mobile-dock .u041-bd {
+  position: absolute;
+  left: calc(50% + 5px);
+  top: 13px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4.5px;
+  border-radius: 9px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 17px;
+  text-align: center;
+  font-style: normal;
+  box-shadow: 0 0 0 2px #ffffff;
+  transition: transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1), opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.nh-mobile-dock .u041-tab[aria-selected="true"] .u041-bd {
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* ==============================================================================
+   2. DARK MODE THEME SUPPORT (GIAO DIỆN TỐI)
+   ============================================================================== */
+html[data-theme="dark"] .nh-mobile-dock .u041-bar {
+  background: #0f172a;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-shadow {
+  box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.75), 0 4px 14px -2px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-bub {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 12px 26px -6px rgba(16, 185, 129, 0.65), 0 4px 12px -2px rgba(16, 185, 129, 0.4);
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-ic {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-tab:hover .u041-ic {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-tab[aria-selected="true"] .u041-ic {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-lab {
+  color: #34d399;
+}
+
+html[data-theme="dark"] .nh-mobile-dock .u041-bd {
+  box-shadow: 0 0 0 2px #0f172a;
+}
+
